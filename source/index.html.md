@@ -160,7 +160,7 @@ $ cmk copyIso <id>
 |**destzoneid**|ID of the zone the template is being copied to|uuid|255|false|
 |**id**|Template ID|uuid|255|true|
 |**destzoneids**|A list of IDs of the zones that the template needs to be copied to. Specify this list if the template needs to be copied to multiple zones in one go. Do not specify destzoneid and destzoneids together. However, one of them is required.|list|255|false|
-|sourcezoneid|ID of the zone the template is currently hosted on. If not specified and template is cross-zone, then we will sync this template to region wide image store.|uuid|255|false|
+|**sourcezoneid**|ID of the zone the template is currently hosted on. If not specified and template is cross-zone, then we will sync this template to region wide image store.|uuid|255|false|
 
 ### Response Schema
 
