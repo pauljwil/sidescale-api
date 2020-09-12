@@ -17,21 +17,23 @@ code_clipboard: true
 
 # Introduction
 
-Sidescale API Apache CloudStack etc. etc.
+This is what the Sidescale API is, what it can do, and a little info about how to use it. This is its relationship to Apache CloudStack and a [link](https://cloudstack.apache.org/api/apidocs-4.11/index.html) to that documentation.
 
 # Authentication
+
+This is a little background on authentication. And this is why users need CloudMonkey and a list of any alternatives.
 
 ## Generate API Keys
 
 These are the steps to generate your API key and your secret key.
 
-## Installing CloudMonkey
+## Install CloudMonkey
 
 > stuff in terminal to install CloudMonkey
 
-This is why you need to install CloudMonkey and how you do it.
+This is how you install CloudMonkey.
 
-## Configuring your CloudMonkey Profile
+## Configure your CloudMonkey Profile
 
 > To authorize CloudMonkey for use with the Sidescale API, enter the following commands:
 
@@ -42,117 +44,176 @@ cmk set apikey=<apikey>
 cmk set secretkey=<secretkey>
 ```
 
-Here is some information about configuring your CloudMonkey profile.
+This is some information about configuring your CloudMonkey profile.
+
+# Autoscale
+
+## deleteAutoscaleVmProfile
+
+This command deletes an autoscale VM profile.
 
 <aside class="notice">
-This is an aside with <code>code</code> in it.
+Asynchronous
 </aside>
 
-# Kittens
+<!--- aside classes are "notice," "warning," and "success" -->
 
-## Get All Kittens
+### Command
+
+> The following command deletes an autoscale VM profile:
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+$ cmk deleteAutoScaleVmProfile <id>
 ```
 
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
+`deleteAutoscaleVmProfile`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the autoscale profile|uuid|255|true|
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+### Response Schema
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "json": "example"
+}
+```
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**success**|True if operation is executed successfully|boolean|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+
+# Hypervisor
+
+## listHypervisors
+
+This command lists hypervisors.
+
+<aside class="notice">
+Not asynchronous
 </aside>
 
-## Get a Specific Kitten
+### Command
+
+> The following command lists hypervisors:
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+$ cmk listHypervisors
 ```
+
+`listHypervisors`
+
+### Query Parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**zone id**|The zone ID for listing hypervisors|uuid|255|false|
+
+### Response Schema
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "json": "example"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|string|The UUID of the latest async job acting on this object|
+|**name**|string|Hypervisor name|
+|**jobstatus**|integer|The current status of the latest async job acting on this object|
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+# ISO
 
-### HTTP Request
+## copyIso
 
-`GET http://example.com/kittens/<ID>`
+This command copies an ISO from one zone to another.
 
-### URL Parameters
+<aside class="notice">
+Asynchronous
+</aside>
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+### Command
 
-## Delete a Specific Kitten
+> The following command lists hypervisors:
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+$ cmk copyIso <id>
 ```
+
+`copyIso`
+
+### Query Parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**destzoneid**|ID of the zone the template is being copied to|uuid|255|false|
+|**id**|Template ID|uuid|255|true|
+|**destzoneids**|A list of IDs of the zones that the template needs to be copied to. Specify this list if the template needs to be copied to multiple zones in one go. Do not specify destzoneid and destzoneids together. However, one of them is required.|list|255|false|
+|sourcezoneid|ID of the zone the template is currently hosted on. If not specified and template is cross-zone, then we will sync this template to region wide image store.|uuid|255|false|
+
+### Response Schema
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "json": "example"
 }
 ```
 
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+|Element|Description|Type|
+|-------|-----------|----|
+|**domain**|The name of the domain to which the template belongs|string|
+|**crosszones**|True if the template is managed across all Zones, false otherwise|boolean|
+|**ostypename**|The name of the OS type for this template|string|
+|**bootable**|True if the ISO is bootable, false otherwise|boolean|
+|**displaytext**|The template display text|string|
+|**ispublic**|True if this template is a public template, false otherwise|boolean|
+|**hypervisor**|The hypervisor on which the template runs|string|
+|**accountid**|The account ID to which the template belongs|string|
+|**passwordenabled**|True if the reset password feature is enabled; false otherwise|boolean|
+|**name**|The template name|string|
+|**parenttemplateid**|If Datadisk template, then ID of the root disk template this template belongs to|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**domainid**|The ID of the domain to which the template belongs|string|
+|**templatetag**|The tag of this template|string|
+|**ostypeid**|The ID of the OS type for this template|string|
+|**removed**|The date this template was removed|date|
+|**hostname**|The name of the secondary storage host for the template|string|
+|**checksum**|Checksum of the template|string|
+|**templatetype**|The type of the template|string|
+|**format**|The format of the template|imageformat|
+|**physicalsize**|The physical size of the template|long|
+|**zonename**|The name of the zone for this template|string|
+|**tags**|The list of resource tags associated|set|
+|**childtemplates**|If root disk template, then ids of the datas disk templates this template owns|set|
+|**sourcetemplateid**|The template ID of the parent template if present|string|
+|**zoneid**|The ID of the zone for this template|string|
+|**status**|The status of the template|string|
+|**size**|The size of the template|long|
+|**sshkeyenabled**|True if template is sshkey enabled, false otherwise|boolean|
+|**created**|The date this template was created|date|
+|**details**|Additional key/value details tied with template|map|
+|**isdynamicallyscalable**|True if template contains XS/VMWare tools in order to support dynamic scaling of VM cpu/memory|boolean|
+|**projectid**|The project id of the template|string|
+|**id**|The template ID|string|
+|**isfeatured**|True if this template is a featured template, false otherwise|boolean|
+|**isready**|True if the template is ready to be deployed from, false otherwise|boolean|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**account**|The account name to which the template belongs|string
+|**bits**|The processor bit size|int|
+|**isextractable**|True if the template is extractable, false otherwise|boolean|
+|**directdownload**|KVM Only: true if template is directly downloaded to Primary Storage bypassing Secondary Storage|boolean|
+|**project**|The project name of the template|string|
+|**hostid**|The ID of the secondary storage host for the template|string|
