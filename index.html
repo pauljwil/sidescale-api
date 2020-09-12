@@ -315,24 +315,34 @@
                     <a href="#generate-api-keys" class="toc-h2 toc-link" data-title="Generate API Keys">Generate API Keys</a>
                   </li>
                   <li>
-                    <a href="#installing-cloudmonkey" class="toc-h2 toc-link" data-title="Installing CloudMonkey">Installing CloudMonkey</a>
+                    <a href="#install-cloudmonkey" class="toc-h2 toc-link" data-title="Install CloudMonkey">Install CloudMonkey</a>
                   </li>
                   <li>
-                    <a href="#configuring-your-cloudmonkey-profile" class="toc-h2 toc-link" data-title="Configuring your CloudMonkey Profile">Configuring your CloudMonkey Profile</a>
+                    <a href="#configure-your-cloudmonkey-profile" class="toc-h2 toc-link" data-title="Configure your CloudMonkey Profile">Configure your CloudMonkey Profile</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#autoscale" class="toc-h1 toc-link" data-title="Autoscale">Autoscale</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#deleteautoscalevmprofile" class="toc-h2 toc-link" data-title="deleteAutoscaleVmProfile">deleteAutoscaleVmProfile</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#hypervisor" class="toc-h1 toc-link" data-title="Hypervisor">Hypervisor</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#listhypervisors" class="toc-h2 toc-link" data-title="listHypervisors">listHypervisors</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#iso" class="toc-h1 toc-link" data-title="ISO">ISO</a>
+              <ul class="toc-list-h2">
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#copyiso" class="toc-h2 toc-link" data-title="copyIso">copyIso</a>
                   </li>
               </ul>
           </li>
@@ -348,16 +358,18 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Sidescale API Apache CloudStack etc. etc.</p>
-<h1 id='authentication'>Authentication</h1><h2 id='generate-api-keys'>Generate API Keys</h2>
+<p>This is what the Sidescale API is, what it can do, and a little info about how to use it. This is its relationship to Apache CloudStack and a <a href="https://cloudstack.apache.org/api/apidocs-4.11/index.html">link</a> to that documentation.</p>
+<h1 id='authentication'>Authentication</h1>
+<p>This is a little background on authentication. And this is why users need CloudMonkey and a list of any alternatives.</p>
+<h2 id='generate-api-keys'>Generate API Keys</h2>
 <p>These are the steps to generate your API key and your secret key.</p>
-<h2 id='installing-cloudmonkey'>Installing CloudMonkey</h2>
+<h2 id='install-cloudmonkey'>Install CloudMonkey</h2>
 <blockquote>
 <p>stuff in terminal to install CloudMonkey</p>
 </blockquote>
 
-<p>This is why you need to install CloudMonkey and how you do it.</p>
-<h2 id='configuring-your-cloudmonkey-profile'>Configuring your CloudMonkey Profile</h2>
+<p>This is how you install CloudMonkey.</p>
+<h2 id='configure-your-cloudmonkey-profile'>Configure your CloudMonkey Profile</h2>
 <blockquote>
 <p>To authorize CloudMonkey for use with the Sidescale API, enter the following commands:</p>
 </blockquote>
@@ -366,124 +378,423 @@ cmk <span class="nb">set </span><span class="nv">url</span><span class="o">=</sp
 cmk <span class="nb">set </span><span class="nv">apikey</span><span class="o">=</span>&lt;apikey&gt;
 cmk <span class="nb">set </span><span class="nv">secretkey</span><span class="o">=</span>&lt;secretkey&gt;
 </code></pre></div>
-<p>Here is some information about configuring your CloudMonkey profile.</p>
+<p>This is some information about configuring your CloudMonkey profile.</p>
+<h1 id='autoscale'>Autoscale</h1><h2 id='deleteautoscalevmprofile'>deleteAutoscaleVmProfile</h2>
+<p>This command deletes an autoscale VM profile.</p>
 
 <aside class="notice">
-This is an aside with <code>code</code> in it.
+Asynchronous
 </aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div>
+
+<!--- aside classes are "notice," "warning," and "success" -->
+<h3 id='command'>Command</h3>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The following command deletes an autoscale VM profile:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk deleteAutoScaleVmProfile &lt;<span class="nb">id</span><span class="o">&gt;</span>
+</code></pre></div>
+<p><code>deleteAutoscaleVmProfile</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Parameter Name</th>
 <th>Description</th>
+<th>Type</th>
+<th>Length</th>
+<th>Required</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
+<td><strong>id</strong></td>
+<td>The ID of the autoscale profile</td>
+<td>uuid</td>
+<td>255</td>
 <td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
 </tr>
 </tbody></table>
+<h3 id='response-schema'>Response Schema</h3>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>success</strong></td>
+<td>True if operation is executed successfully</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>Any text associated with the success or failure</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+</tbody></table>
+<h1 id='hypervisor'>Hypervisor</h1><h2 id='listhypervisors'>listHypervisors</h2>
+<p>This command lists hypervisors.</p>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+Not asynchronous
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div>
+<h3 id='command-2'>Command</h3>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>The following command lists hypervisors:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk listHypervisors
+</code></pre></div>
+<p><code>listHypervisors</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Parameter Name</th>
 <th>Description</th>
+<th>Type</th>
+<th>Length</th>
+<th>Required</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td><strong>zone id</strong></td>
+<td>The zone ID for listing hypervisors</td>
+<td>uuid</td>
+<td>255</td>
+<td>false</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  <span class="nt">-X</span> DELETE
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div>
+<h3 id='response-schema-2'>Response Schema</h3>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+  </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Element</th>
 <th>Description</th>
+<th>Type</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td><strong>jobid</strong></td>
+<td>string</td>
+<td>The UUID of the latest async job acting on this object</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>string</td>
+<td>Hypervisor name</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>integer</td>
+<td>The current status of the latest async job acting on this object</td>
+</tr>
+</tbody></table>
+<h1 id='iso'>ISO</h1><h2 id='copyiso'>copyIso</h2>
+<p>This command copies an ISO from one zone to another.</p>
+
+<aside class="notice">
+Asynchronous
+</aside>
+<h3 id='command-3'>Command</h3>
+<blockquote>
+<p>The following command lists hypervisors:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk copyIso &lt;<span class="nb">id</span><span class="o">&gt;</span>
+</code></pre></div>
+<p><code>copyIso</code></p>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Length</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>destzoneid</strong></td>
+<td>ID of the zone the template is being copied to</td>
+<td>uuid</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td>Template ID</td>
+<td>uuid</td>
+<td>255</td>
+<td>true</td>
+</tr>
+<tr>
+<td><strong>destzoneids</strong></td>
+<td>A list of IDs of the zones that the template needs to be copied to. Specify this list if the template needs to be copied to multiple zones in one go. Do not specify destzoneid and destzoneids together. However, one of them is required.</td>
+<td>list</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td>sourcezoneid</td>
+<td>ID of the zone the template is currently hosted on. If not specified and template is cross-zone, then we will sync this template to region wide image store.</td>
+<td>uuid</td>
+<td>255</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h3 id='response-schema-3'>Response Schema</h3>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>domain</strong></td>
+<td>The name of the domain to which the template belongs</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>crosszones</strong></td>
+<td>True if the template is managed across all Zones, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>ostypename</strong></td>
+<td>The name of the OS type for this template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>bootable</strong></td>
+<td>True if the ISO is bootable, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>The template display text</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>ispublic</strong></td>
+<td>True if this template is a public template, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>hypervisor</strong></td>
+<td>The hypervisor on which the template runs</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>accountid</strong></td>
+<td>The account ID to which the template belongs</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>passwordenabled</strong></td>
+<td>True if the reset password feature is enabled; false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>The template name</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>parenttemplateid</strong></td>
+<td>If Datadisk template, then ID of the root disk template this template belongs to</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>domainid</strong></td>
+<td>The ID of the domain to which the template belongs</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>templatetag</strong></td>
+<td>The tag of this template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>ostypeid</strong></td>
+<td>The ID of the OS type for this template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>removed</strong></td>
+<td>The date this template was removed</td>
+<td>date</td>
+</tr>
+<tr>
+<td><strong>hostname</strong></td>
+<td>The name of the secondary storage host for the template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>checksum</strong></td>
+<td>Checksum of the template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>templatetype</strong></td>
+<td>The type of the template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>format</strong></td>
+<td>The format of the template</td>
+<td>imageformat</td>
+</tr>
+<tr>
+<td><strong>physicalsize</strong></td>
+<td>The physical size of the template</td>
+<td>long</td>
+</tr>
+<tr>
+<td><strong>zonename</strong></td>
+<td>The name of the zone for this template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>tags</strong></td>
+<td>The list of resource tags associated</td>
+<td>set</td>
+</tr>
+<tr>
+<td><strong>childtemplates</strong></td>
+<td>If root disk template, then ids of the datas disk templates this template owns</td>
+<td>set</td>
+</tr>
+<tr>
+<td><strong>sourcetemplateid</strong></td>
+<td>The template ID of the parent template if present</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>zoneid</strong></td>
+<td>The ID of the zone for this template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>status</strong></td>
+<td>The status of the template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>size</strong></td>
+<td>The size of the template</td>
+<td>long</td>
+</tr>
+<tr>
+<td><strong>sshkeyenabled</strong></td>
+<td>True if template is sshkey enabled, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>created</strong></td>
+<td>The date this template was created</td>
+<td>date</td>
+</tr>
+<tr>
+<td><strong>details</strong></td>
+<td>Additional key/value details tied with template</td>
+<td>map</td>
+</tr>
+<tr>
+<td><strong>isdynamicallyscalable</strong></td>
+<td>True if template contains XS/VMWare tools in order to support dynamic scaling of VM cpu/memory</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>projectid</strong></td>
+<td>The project id of the template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td>The template ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>isfeatured</strong></td>
+<td>True if this template is a featured template, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>isready</strong></td>
+<td>True if the template is ready to be deployed from, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>account</strong></td>
+<td>The account name to which the template belongs</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>bits</strong></td>
+<td>The processor bit size</td>
+<td>int</td>
+</tr>
+<tr>
+<td><strong>isextractable</strong></td>
+<td>True if the template is extractable, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>directdownload</strong></td>
+<td>KVM Only: true if template is directly downloaded to Primary Storage bypassing Secondary Storage</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>project</strong></td>
+<td>The project name of the template</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>hostid</strong></td>
+<td>The ID of the secondary storage host for the template</td>
+<td>string</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
-</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>This section will contain error codes and their meanings.</p>
 
 <table><thead>
 <tr>
@@ -498,42 +809,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 <tr>
 <td>401</td>
 <td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
 
