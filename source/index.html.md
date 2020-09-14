@@ -39,9 +39,9 @@ This is how you install CloudMonkey.
 
 ```shell
 cmk set profile mycloud
-cmk set url=https://sidescale.com/client/api
-cmk set apikey=<apikey>
-cmk set secretkey=<secretkey>
+cmk set url https://sidescale.com/client/api
+cmk set apikey <apikey>
+cmk set secretkey <secretkey>
 ```
 
 This is some information about configuring your CloudMonkey profile.
@@ -123,7 +123,33 @@ $ cmk listHypervisors
 
 ```json
 {
-  "json": "example"
+  "count": 8,
+  "hypervisor": [
+    {
+      "name": "Hyperv"
+    },
+    {
+      "name": "KVM"
+    },
+    {
+      "name": "XenServer"
+    },
+    {
+      "name": "VMware"
+    },
+    {
+      "name": "BareMetal"
+    },
+    {
+      "name": "Ovm"
+    },
+    {
+      "name": "LXC"
+    },
+    {
+      "name": "Ovm3"
+    }
+  ]
 }
 ```
 

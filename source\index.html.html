@@ -53,9 +53,9 @@
 <p>To authorize CloudMonkey for use with the Sidescale API, enter the following commands:</p>
 </blockquote>
 <pre><code class="language-shell">cmk set profile mycloud
-cmk set url=https://sidescale.com/client/api
-cmk set apikey=&lt;apikey&gt;
-cmk set secretkey=&lt;secretkey&gt;</code></pre>
+cmk set url https://sidescale.com/client/api
+cmk set apikey &lt;apikey&gt;
+cmk set secretkey &lt;secretkey&gt;</code></pre>
 <p>This is some information about configuring your CloudMonkey profile.</p>
 <h1 id="autoscale">Autoscale</h1>
 <h2 id="deleteautoscalevmprofile">deleteAutoscaleVmProfile</h2>
@@ -164,7 +164,33 @@ Not asynchronous
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre><code class="language-json">{
-  &quot;json&quot;: &quot;example&quot;
+  &quot;count&quot;: 8,
+  &quot;hypervisor&quot;: [
+    {
+      &quot;name&quot;: &quot;Hyperv&quot;
+    },
+    {
+      &quot;name&quot;: &quot;KVM&quot;
+    },
+    {
+      &quot;name&quot;: &quot;XenServer&quot;
+    },
+    {
+      &quot;name&quot;: &quot;VMware&quot;
+    },
+    {
+      &quot;name&quot;: &quot;BareMetal&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Ovm&quot;
+    },
+    {
+      &quot;name&quot;: &quot;LXC&quot;
+    },
+    {
+      &quot;name&quot;: &quot;Ovm3&quot;
+    }
+  ]
 }</code></pre>
 <table>
 <thead>
