@@ -374,9 +374,9 @@
 <p>To authorize CloudMonkey for use with the Sidescale API, enter the following commands:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>cmk <span class="nb">set </span>profile mycloud
-cmk <span class="nb">set </span><span class="nv">url</span><span class="o">=</span>https://sidescale.com/client/api
-cmk <span class="nb">set </span><span class="nv">apikey</span><span class="o">=</span>&lt;apikey&gt;
-cmk <span class="nb">set </span><span class="nv">secretkey</span><span class="o">=</span>&lt;secretkey&gt;
+cmk <span class="nb">set </span>url https://sidescale.com/client/api
+cmk <span class="nb">set </span>apikey &lt;apikey&gt;
+cmk <span class="nb">set </span>secretkey &lt;secretkey&gt;
 </code></pre></div>
 <p>This is some information about configuring your CloudMonkey profile.</p>
 <h1 id='autoscale'>Autoscale</h1><h2 id='deleteautoscalevmprofile'>deleteAutoscaleVmProfile</h2>
@@ -484,7 +484,33 @@ Not asynchronous
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="w">
+  </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hypervisor"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hyperv"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KVM"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XenServer"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VMware"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BareMetal"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ovm"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LXC"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ovm3"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <table><thead>
