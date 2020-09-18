@@ -38,16 +38,25 @@
 <p>search: true</p>
 <h2 id="code_clipboard-true">code_clipboard: true</h2>
 <h1 id="introduction">Introduction</h1>
-<p>This is what the Sidescale API is, what it can do, and a little info about how to use it. This is its relationship to Apache CloudStack and a <a href="https://cloudstack.apache.org/api/apidocs-4.11/index.html">link</a> to that documentation.</p>
+<p>Welcome to Sidescale&apos;s implementation of the Apache CloudStack API. This page contains the reference documentation for 253 API requests, and all the information you need to get started using the API.</p>
+<p>Complete documentation for the Apache CloudStack API can be found <a href="https://cloudstack.apache.org/api/apidocs-4.11/index.html">here</a>.</p>
 <h1 id="authentication">Authentication</h1>
-<p>This is a little background on authentication. And this is why users need CloudMonkey and a list of any alternatives.</p>
 <h2 id="generate-api-keys">Generate API Keys</h2>
-<p>These are the steps to generate your API key and your secret key.</p>
+<p>To access the Apache CloudStack API, you will need to generate an API key and a secret key. To do so, log in to <a href="sidescale.com">sidescale.com</a>, navigate to <a href="sidescale.com/client">sidescale.com/client</a>, and follow these steps:</p>
+<ol>
+<li>Select the <strong>Accounts</strong> tab in the left sidebar.</li>
+<li>Select <strong>People</strong>, then <strong>View Users</strong>.</li>
+<li>Select your username, then the <strong>Generate Keys</strong> icon.</li>
+</ol>
+<p>Your API key and secret key will be automatically generated, appearing midway down the page.</p>
+<aside class="warning">
+Note that you will only be able to generate an API key for your account due to the permission level Sidescale assigns to you.
+</aside>
+
 <h2 id="install-cloudmonkey">Install CloudMonkey</h2>
-<blockquote>
-<p>stuff in terminal to install CloudMonkey</p>
-</blockquote>
-<p>This is how you install CloudMonkey.</p>
+<p>To make API calls with the Apache CloudStack API, you will need to install a command line interface for doing so. We recommend <a href="https://github.com/apache/cloudstack-cloudmonkey">CloudMonkey</a>, and will explain how to use it here. Those skilled in Python might prefer using <a href="https://github.com/exoscale/cs">Exoscale</a>.</p>
+<p>You will need to have <a href="https://golang.org/doc/install">Go</a> installed before you can use CloudMonkey.</p>
+<p>To install CloudMonkey, follow the instructions on the <a href="https://github.com/apache/cloudstack-cloudmonkey/wiki/Getting-Started"><strong>Getting Started</strong></a> page of the repository&apos;s wiki.</p>
 <h2 id="configure-your-cloudmonkey-profile">Configure your CloudMonkey Profile</h2>
 <blockquote>
 <p>To authorize CloudMonkey for use with the Sidescale API, enter the following commands:</p>
@@ -56,7 +65,12 @@
 cmk set url https://sidescale.com/client/api
 cmk set apikey &lt;apikey&gt;
 cmk set secretkey &lt;secretkey&gt;</code></pre>
-<p>This is some information about configuring your CloudMonkey profile.</p>
+<p>The first time you use CloudMonkey, it will create a default server profile called <code>localcloud</code>. You will need to create a new server profile and configure it with the commands in the panel on the right.</p>
+<aside class="notice">
+Alternatively, you can make API requests from within the CloudMonkey interactive shell. See the CloudMonkey <a href="https://github.com/apache/cloudstack-cloudmonkey/wiki">wiki</a> for more information.
+</aside>
+
+<h1 id="make-api-requests">Make API Requests</h1>
 <h1 id="autoscale">Autoscale</h1>
 <h2 id="deleteautoscalevmprofile">deleteAutoscaleVmProfile</h2>
 <p>This command deletes an autoscale VM profile.</p>

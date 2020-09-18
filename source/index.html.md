@@ -17,21 +17,33 @@ code_clipboard: true
 
 # Introduction
 
-This is what the Sidescale API is, what it can do, and a little info about how to use it. This is its relationship to Apache CloudStack and a [link](https://cloudstack.apache.org/api/apidocs-4.11/index.html) to that documentation.
+Welcome to Sidescale's implementation of the Apache CloudStack API. This page contains the reference documentation for 253 API requests, and all the information you need to get started using the API.
+
+Complete documentation for the Apache CloudStack API can be found [here](https://cloudstack.apache.org/api/apidocs-4.11/index.html).
 
 # Authentication
 
-This is a little background on authentication. And this is why users need CloudMonkey and a list of any alternatives.
-
 ## Generate API Keys
 
-These are the steps to generate your API key and your secret key.
+To access the Apache CloudStack API, you will need to generate an API key and a secret key. To do so, log in to [sidescale.com](sidescale.com), navigate to [sidescale.com/client](sidescale.com/client), and follow these steps:
+
+1. Select the **Accounts** tab in the left sidebar.
+2. Select **People**, then **View Users**.
+3. Select your username, then the **Generate Keys** icon.
+
+Your API key and secret key will be automatically generated, appearing midway down the page.
+
+<aside class="warning">
+Note that you will only be able to generate an API key for your account due to the permission level Sidescale assigns to you.
+</aside>
 
 ## Install CloudMonkey
 
-> stuff in terminal to install CloudMonkey
+To make API calls with the Apache CloudStack API, you will need to install a command line interface for doing so. We recommend [CloudMonkey](https://github.com/apache/cloudstack-cloudmonkey), and will explain how to use it here. Those skilled in Python might prefer using [Exoscale](https://github.com/exoscale/cs).
 
-This is how you install CloudMonkey.
+You will need to have [Go](https://golang.org/doc/install) installed before you can use CloudMonkey.
+
+To install CloudMonkey, follow the instructions on the [**Getting Started**](https://github.com/apache/cloudstack-cloudmonkey/wiki/Getting-Started) page of the repository's wiki.
 
 ## Configure your CloudMonkey Profile
 
@@ -44,7 +56,13 @@ cmk set apikey <apikey>
 cmk set secretkey <secretkey>
 ```
 
-This is some information about configuring your CloudMonkey profile.
+The first time you use CloudMonkey, it will create a default server profile called `localcloud`. You will need to create a new server profile and configure it with the commands in the panel on the right.
+
+<aside class="notice">
+Alternatively, you can make API requests from within the CloudMonkey interactive shell. See the CloudMonkey <a href="https://github.com/apache/cloudstack-cloudmonkey/wiki">wiki</a> for more information.
+</aside>
+
+# Make API Requests
 
 # Autoscale
 
