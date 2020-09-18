@@ -23,7 +23,7 @@ Complete documentation for the Apache CloudStack API can be found [here](https:/
 
 # Authentication
 
-## Generate API Keys
+## Generating API Keys
 
 To access the Apache CloudStack API, you will need to generate an API key and a secret key. To do so, log in to [sidescale.com](sidescale.com), navigate to [sidescale.com/client](sidescale.com/client), and follow these steps:
 
@@ -37,7 +37,7 @@ Your API key and secret key will be automatically generated, appearing midway do
 Note that you will only be able to generate an API key for your account due to the permission level Sidescale assigns to you.
 </aside>
 
-## Install CloudMonkey
+## Installing CloudMonkey
 
 To make API calls with the Apache CloudStack API, you will need to install a command line interface for doing so. We recommend [CloudMonkey](https://github.com/apache/cloudstack-cloudmonkey), and will explain how to use it here. Those skilled in Python might prefer using [Exoscale](https://github.com/exoscale/cs).
 
@@ -45,7 +45,7 @@ You will need to have [Go](https://golang.org/doc/install) installed before you 
 
 To install CloudMonkey, follow the instructions on the [**Getting Started**](https://github.com/apache/cloudstack-cloudmonkey/wiki/Getting-Started) page of the repository's wiki.
 
-## Configure your CloudMonkey Server Profile
+## Configuring your CloudMonkey Server Profile
 
 > To authorize CloudMonkey for use with the Sidescale API, enter the following commands:
 
@@ -62,7 +62,7 @@ The first time you use CloudMonkey, it will create a default server profile call
 Alternatively, you can make API requests from within the CloudMonkey interactive shell. See the CloudMonkey <a href="https://github.com/apache/cloudstack-cloudmonkey/wiki">wiki</a> for more information.
 </aside>
 
-# Make API Requests
+# Making API Requests
 
 To make API requests, you must include `cmk`, the command you are using, and any required or optional query parameters you wish to use. Query parameters are passed as `key=value` pairs. For example, to request all of the VM instances owned by the Admin user, enter:
 
