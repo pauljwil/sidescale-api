@@ -318,7 +318,7 @@
                     <a href="#install-cloudmonkey" class="toc-h2 toc-link" data-title="Install CloudMonkey">Install CloudMonkey</a>
                   </li>
                   <li>
-                    <a href="#configure-your-cloudmonkey-profile" class="toc-h2 toc-link" data-title="Configure your CloudMonkey Profile">Configure your CloudMonkey Profile</a>
+                    <a href="#configure-your-cloudmonkey-server-profile" class="toc-h2 toc-link" data-title="Configure your CloudMonkey Server Profile">Configure your CloudMonkey Server Profile</a>
                   </li>
               </ul>
           </li>
@@ -326,26 +326,10 @@
             <a href="#make-api-requests" class="toc-h1 toc-link" data-title="Make API Requests">Make API Requests</a>
           </li>
           <li>
-            <a href="#autoscale" class="toc-h1 toc-link" data-title="Autoscale">Autoscale</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#deleteautoscalevmprofile" class="toc-h2 toc-link" data-title="deleteAutoscaleVmProfile">deleteAutoscaleVmProfile</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#hypervisor" class="toc-h1 toc-link" data-title="Hypervisor">Hypervisor</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#listhypervisors" class="toc-h2 toc-link" data-title="listHypervisors">listHypervisors</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#iso" class="toc-h1 toc-link" data-title="ISO">ISO</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#copyiso" class="toc-h2 toc-link" data-title="copyIso">copyIso</a>
                   </li>
               </ul>
           </li>
@@ -384,7 +368,7 @@ Note that you will only be able to generate an API key for your account due to t
 <p>You will need to have <a href="https://golang.org/doc/install">Go</a> installed before you can use CloudMonkey.</p>
 
 <p>To install CloudMonkey, follow the instructions on the <a href="https://github.com/apache/cloudstack-cloudmonkey/wiki/Getting-Started"><strong>Getting Started</strong></a> page of the repository&#39;s wiki.</p>
-<h2 id='configure-your-cloudmonkey-profile'>Configure your CloudMonkey Profile</h2>
+<h2 id='configure-your-cloudmonkey-server-profile'>Configure your CloudMonkey Server Profile</h2>
 <blockquote>
 <p>To authorize CloudMonkey for use with the Sidescale API, enter the following commands:</p>
 </blockquote>
@@ -398,89 +382,24 @@ cmk <span class="nb">set </span>secretkey &lt;secretkey&gt;
 <aside class="notice">
 Alternatively, you can make API requests from within the CloudMonkey interactive shell. See the CloudMonkey <a href="https://github.com/apache/cloudstack-cloudmonkey/wiki">wiki</a> for more information.
 </aside>
-<h1 id='make-api-requests'>Make API Requests</h1><h1 id='autoscale'>Autoscale</h1><h2 id='deleteautoscalevmprofile'>deleteAutoscaleVmProfile</h2>
-<p>This command deletes an autoscale VM profile.</p>
+<h1 id='make-api-requests'>Make API Requests</h1>
+<p>To make API requests, you must include <code>cmk</code>, the command you are using, and any required or optional query parameters you wish to use. Query parameters are passed as <code>key=value</code> pairs. For example, to request all of the VM instances owned by the Admin user, enter:</p>
 
-<aside class="notice">
-Asynchronous
-</aside>
-
-<!--- aside classes are "notice," "warning," and "success" -->
-<h3 id='command'>Command</h3>
-<blockquote>
-<p>The following command deletes an autoscale VM profile:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk deleteAutoScaleVmProfile &lt;<span class="nb">id</span><span class="o">&gt;</span>
-</code></pre></div>
-<p><code>deleteAutoscaleVmProfile</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter Name</th>
-<th>Description</th>
-<th>Type</th>
-<th>Length</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>id</strong></td>
-<td>The ID of the autoscale profile</td>
-<td>uuid</td>
-<td>255</td>
-<td>true</td>
-</tr>
-</tbody></table>
-<h3 id='response-schema'>Response Schema</h3>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Element</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>success</strong></td>
-<td>True if operation is executed successfully</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>displaytext</strong></td>
-<td>Any text associated with the success or failure</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>jobid</strong></td>
-<td>The UUID of the latest async job acting on this object</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>jobstatus</strong></td>
-<td>The current status of the latest async job acting on this object</td>
-<td>integer</td>
-</tr>
-</tbody></table>
+<p><code>$ cmk listVirtualMachines domainId=1 account=admin</code></p>
 <h1 id='hypervisor'>Hypervisor</h1><h2 id='listhypervisors'>listHypervisors</h2>
 <p>This command lists hypervisors.</p>
 
 <aside class="notice">
 Not asynchronous
 </aside>
-<h3 id='command-2'>Command</h3>
+<h3 id='command'>Command</h3>
 <blockquote>
 <p>The following command lists hypervisors:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk listHypervisors
 </code></pre></div>
 <p><code>listHypervisors</code></p>
-<h3 id='query-parameters-2'>Query Parameters</h3>
+<h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter Name</th>
@@ -498,7 +417,7 @@ Not asynchronous
 <td>false</td>
 </tr>
 </tbody></table>
-<h3 id='response-schema-2'>Response Schema</h3>
+<h3 id='response-schema'>Response Schema</h3>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
@@ -555,307 +474,8 @@ Not asynchronous
 <td>The current status of the latest async job acting on this object</td>
 </tr>
 </tbody></table>
-<h1 id='iso'>ISO</h1><h2 id='copyiso'>copyIso</h2>
-<p>This command copies an ISO from one zone to another.</p>
-
-<aside class="notice">
-Asynchronous
-</aside>
-<h3 id='command-3'>Command</h3>
-<blockquote>
-<p>The following command lists hypervisors:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk copyIso &lt;<span class="nb">id</span><span class="o">&gt;</span>
-</code></pre></div>
-<p><code>copyIso</code></p>
-<h3 id='query-parameters-3'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter Name</th>
-<th>Description</th>
-<th>Type</th>
-<th>Length</th>
-<th>Required</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>destzoneid</strong></td>
-<td>ID of the zone the template is being copied to</td>
-<td>uuid</td>
-<td>255</td>
-<td>false</td>
-</tr>
-<tr>
-<td><strong>id</strong></td>
-<td>Template ID</td>
-<td>uuid</td>
-<td>255</td>
-<td>true</td>
-</tr>
-<tr>
-<td><strong>destzoneids</strong></td>
-<td>A list of IDs of the zones that the template needs to be copied to. Specify this list if the template needs to be copied to multiple zones in one go. Do not specify destzoneid and destzoneids together. However, one of them is required.</td>
-<td>list</td>
-<td>255</td>
-<td>false</td>
-</tr>
-<tr>
-<td><strong>sourcezoneid</strong></td>
-<td>ID of the zone the template is currently hosted on. If not specified and template is cross-zone, then we will sync this template to region wide image store.</td>
-<td>uuid</td>
-<td>255</td>
-<td>false</td>
-</tr>
-</tbody></table>
-<h3 id='response-schema-3'>Response Schema</h3>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"json"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<table><thead>
-<tr>
-<th>Element</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>domain</strong></td>
-<td>The name of the domain to which the template belongs</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>crosszones</strong></td>
-<td>True if the template is managed across all Zones, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>ostypename</strong></td>
-<td>The name of the OS type for this template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>bootable</strong></td>
-<td>True if the ISO is bootable, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>displaytext</strong></td>
-<td>The template display text</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>ispublic</strong></td>
-<td>True if this template is a public template, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>hypervisor</strong></td>
-<td>The hypervisor on which the template runs</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>accountid</strong></td>
-<td>The account ID to which the template belongs</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>passwordenabled</strong></td>
-<td>True if the reset password feature is enabled; false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>name</strong></td>
-<td>The template name</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>parenttemplateid</strong></td>
-<td>If Datadisk template, then ID of the root disk template this template belongs to</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>jobid</strong></td>
-<td>The UUID of the latest async job acting on this object</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>domainid</strong></td>
-<td>The ID of the domain to which the template belongs</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>templatetag</strong></td>
-<td>The tag of this template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>ostypeid</strong></td>
-<td>The ID of the OS type for this template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>removed</strong></td>
-<td>The date this template was removed</td>
-<td>date</td>
-</tr>
-<tr>
-<td><strong>hostname</strong></td>
-<td>The name of the secondary storage host for the template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>checksum</strong></td>
-<td>Checksum of the template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>templatetype</strong></td>
-<td>The type of the template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>format</strong></td>
-<td>The format of the template</td>
-<td>imageformat</td>
-</tr>
-<tr>
-<td><strong>physicalsize</strong></td>
-<td>The physical size of the template</td>
-<td>long</td>
-</tr>
-<tr>
-<td><strong>zonename</strong></td>
-<td>The name of the zone for this template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>tags</strong></td>
-<td>The list of resource tags associated</td>
-<td>set</td>
-</tr>
-<tr>
-<td><strong>childtemplates</strong></td>
-<td>If root disk template, then ids of the datas disk templates this template owns</td>
-<td>set</td>
-</tr>
-<tr>
-<td><strong>sourcetemplateid</strong></td>
-<td>The template ID of the parent template if present</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>zoneid</strong></td>
-<td>The ID of the zone for this template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>status</strong></td>
-<td>The status of the template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>size</strong></td>
-<td>The size of the template</td>
-<td>long</td>
-</tr>
-<tr>
-<td><strong>sshkeyenabled</strong></td>
-<td>True if template is sshkey enabled, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>created</strong></td>
-<td>The date this template was created</td>
-<td>date</td>
-</tr>
-<tr>
-<td><strong>details</strong></td>
-<td>Additional key/value details tied with template</td>
-<td>map</td>
-</tr>
-<tr>
-<td><strong>isdynamicallyscalable</strong></td>
-<td>True if template contains XS/VMWare tools in order to support dynamic scaling of VM cpu/memory</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>projectid</strong></td>
-<td>The project id of the template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>id</strong></td>
-<td>The template ID</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>isfeatured</strong></td>
-<td>True if this template is a featured template, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>isready</strong></td>
-<td>True if the template is ready to be deployed from, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>jobstatus</strong></td>
-<td>The current status of the latest async job acting on this object</td>
-<td>integer</td>
-</tr>
-<tr>
-<td><strong>account</strong></td>
-<td>The account name to which the template belongs</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>bits</strong></td>
-<td>The processor bit size</td>
-<td>int</td>
-</tr>
-<tr>
-<td><strong>isextractable</strong></td>
-<td>True if the template is extractable, false otherwise</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>directdownload</strong></td>
-<td>KVM Only: true if template is directly downloaded to Primary Storage bypassing Secondary Storage</td>
-<td>boolean</td>
-</tr>
-<tr>
-<td><strong>project</strong></td>
-<td>The project name of the template</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>hostid</strong></td>
-<td>The ID of the secondary storage host for the template</td>
-<td>string</td>
-</tr>
-</tbody></table>
 <h1 id='errors'>Errors</h1>
 <p>This section will contain error codes and their meanings.</p>
-
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-</tbody></table>
 
       </div>
       <div class="dark-box">
