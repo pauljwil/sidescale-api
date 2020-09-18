@@ -17,7 +17,7 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to Sidescale's implementation of the Apache CloudStack API. This page contains the reference documentation for 253 API requests, and all the information you need to get started using the API.
+Welcome to Sidescale's implementation of the Apache CloudStack API. This page will contain the reference documentation for 253 API requests, and all the information you need to get started using the API. It is currently under production. 
 
 Complete documentation for the Apache CloudStack API can be found [here](https://cloudstack.apache.org/api/apidocs-4.11/index.html).
 
