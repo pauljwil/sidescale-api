@@ -17,7 +17,7 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to Sidescale's implementation of the Apache CloudStack API. This page will contain the reference documentation for 253 API requests, and all the information you need to get started using the API. The documentation is currently still under construction. 
+Welcome to Sidescale's implementation of the Apache CloudStack API. This page will contain the reference documentation for 253 API requests, and all the information you need to get started using the API. The documentation is currently still under construction.
 
 Complete documentation for the Apache CloudStack API can be found [here](https://cloudstack.apache.org/api/apidocs-4.11/index.html).
 
@@ -34,7 +34,7 @@ To access the Apache CloudStack API, you will need to generate an API key and a 
 Your API key and secret key will be automatically generated, appearing midway down the page.
 
 <aside class="warning">
-Note that you will only be able to generate an API key for your account due to the permission level Sidescale assigns to you.
+Note that, due to the permission level Sidescale assigns to you, you will only be able to generate an API key for your account.
 </aside>
 
 ## Installing CloudMonkey
