@@ -326,10 +326,26 @@
             <a href="#making-api-requests" class="toc-h1 toc-link" data-title="Making API requests">Making API requests</a>
           </li>
           <li>
+            <a href="#event" class="toc-h1 toc-link" data-title="Event">Event</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#deleteevents" class="toc-h2 toc-link" data-title="deleteEvents">deleteEvents</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#hypervisor" class="toc-h1 toc-link" data-title="Hypervisor">Hypervisor</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#listhypervisors" class="toc-h2 toc-link" data-title="listHypervisors">listHypervisors</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#template" class="toc-h1 toc-link" data-title="Template">Template</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#listnuagevspdomaintemplates" class="toc-h2 toc-link" data-title="listNuageVspDomainTemplates">listNuageVspDomainTemplates</a>
                   </li>
               </ul>
           </li>
@@ -386,20 +402,101 @@ Alternatively, you can make API requests from within the CloudMonkey interactive
 <p>To make API requests, you must include <code>cmk</code>, the command you are using, and any required or optional query parameters you wish to use. Query parameters are passed as <code>key=value</code> pairs. For example, to request all of the VM instances owned by the Admin user, enter:</p>
 
 <p><code>$ cmk listVirtualMachines domainId=1 account=admin</code></p>
-<h1 id='hypervisor'>Hypervisor</h1><h2 id='listhypervisors'>listHypervisors</h2>
-<p>This command lists hypervisors.</p>
+<h1 id='event'>Event</h1><h2 id='deleteevents'>deleteEvents</h2>
+<p>This command deletes one or more events.</p>
 
 <aside class="notice">
 Not asynchronous
 </aside>
 <h3 id='command'>Command</h3>
 <blockquote>
+<p>The following command deletes one or more events:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk deleteEvents
+</code></pre></div>
+<p><code>deleteEvents</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Length</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>ids</strong></td>
+<td>The IDs of the events</td>
+<td>list</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td>Delete by event type</td>
+<td>string</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>enddate</strong></td>
+<td>End date range to delete events (including) this date (use format \&quot;yyyy-MM-dd\&quot; or the new format \&quot;yyyy-MM-ddThh:mm:ss\&quot;)</td>
+<td>date</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>startdate</strong></td>
+<td>Start date range to delete events (including) this date (use format \&quot;yyyy-MM-dd\&quot; or the new format \&quot;yyyy-MM-ddThh:mm:ss\&quot;)</td>
+<td>date</td>
+<td>255</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h3 id='response-schema'>Response Schema</h3>
+<table><thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>Any text associated with the success or failure</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>success</strong></td>
+<td>True if operation is executed successfully</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
+<h1 id='hypervisor'>Hypervisor</h1><h2 id='listhypervisors'>listHypervisors</h2>
+<p>This command lists hypervisors.</p>
+
+<aside class="notice">
+Not asynchronous
+</aside>
+<h3 id='command-2'>Command</h3>
+<blockquote>
 <p>The following command lists hypervisors:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk listHypervisors
 </code></pre></div>
 <p><code>listHypervisors</code></p>
-<h3 id='query-parameters'>Query parameters</h3>
+<h3 id='query-parameters-2'>Query parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter Name</th>
@@ -417,40 +514,7 @@ Not asynchronous
 <td>false</td>
 </tr>
 </tbody></table>
-<h3 id='response-schema'>Response schema</h3>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"hypervisor"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hyperv"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KVM"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XenServer"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VMware"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BareMetal"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ovm"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LXC"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ovm3"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
+<h3 id='response-schema-2'>Response schema</h3>
 <table><thead>
 <tr>
 <th>Element</th>
@@ -472,6 +536,77 @@ Not asynchronous
 <td><strong>jobstatus</strong></td>
 <td>integer</td>
 <td>The current status of the latest async job acting on this object</td>
+</tr>
+</tbody></table>
+<h1 id='template'>Template</h1><h2 id='listnuagevspdomaintemplates'>listNuageVspDomainTemplates</h2>
+<p>This command lists Nuage VSP domain templates.</p>
+
+<aside class="notice">
+Not asynchronous
+</aside>
+<h3 id='command-3'>Command</h3>
+<blockquote>
+<p>The following command lists Nuage VSP domain templates:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="nv">$ </span>cmk listNuageVspDomainTemplates
+</code></pre></div>
+<p><code>listNuageVspDomainTemplates</code></p>
+<h3 id='query-parameters-3'>Query parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Length</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>zoneid</strong></td>
+<td>The zone ID</td>
+<td>uuid</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>keyword</strong></td>
+<td>Filters the domain templates which contain the keyword</td>
+<td>string</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>physicalnetworkid</strong></td>
+<td>The physical network ID</td>
+<td>uuid</td>
+<td>255</td>
+<td>false</td>
+</tr>
+<tr>
+<td><strong>domainid</strong></td>
+<td>The domain ID</td>
+<td>uuid</td>
+<td>255</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h3 id='response-schema-3'>Response schema</h3>
+<table><thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
