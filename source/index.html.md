@@ -88,7 +88,7 @@ $ cmk deleteEvents
 
 `deleteEvents`
 
-### Query Parameters
+### Query parameters
 
 |Parameter Name|Description|Type|Length|Required|
 |--------------|-----------|----|------|--------|
@@ -97,7 +97,7 @@ $ cmk deleteEvents
 |**enddate**|End date range to delete events (including) this date (use format \"yyyy-MM-dd\" or the new format \"yyyy-MM-ddThh:mm:ss\")|date|255|false|
 |**startdate**|Start date range to delete events (including) this date (use format \"yyyy-MM-dd\" or the new format \"yyyy-MM-ddThh:mm:ss\")|date|255|false|
 
-### Response Schema
+### Response schema
 
 |Element|Description|Type|
 |-------|-----------|----|
