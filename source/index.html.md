@@ -68,6 +68,44 @@ To make API requests, you must include `cmk`, the command you are using, and any
 
 `$ cmk listVirtualMachines domainId=1 account=admin`
 
+# Event
+
+## deleteEvents
+
+This command deletes one or more events.
+
+<aside class="notice">
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command deletes one or more events:
+
+```shell
+$ cmk deleteEvents
+```
+
+`deleteEvents`
+
+### Query Parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**ids**|The IDs of the events|list|255|false|
+|**type**|Delete by event type|string|255|false|
+|**enddate**|End date range to delete events (including) this date (use format \"yyyy-MM-dd\" or the new format \"yyyy-MM-ddThh:mm:ss\")|date|255|false|
+|**startdate**|Start date range to delete events (including) this date (use format \"yyyy-MM-dd\" or the new format \"yyyy-MM-ddThh:mm:ss\")|date|255|false|
+
+### Response Schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**success**|True if operation is executed successfully|boolean|
+
 # Hypervisor
 
 ## listHypervisors
@@ -96,42 +134,44 @@ $ cmk listHypervisors
 
 ### Response schema
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "count": 8,
-  "hypervisor": [
-    {
-      "name": "Hyperv"
-    },
-    {
-      "name": "KVM"
-    },
-    {
-      "name": "XenServer"
-    },
-    {
-      "name": "VMware"
-    },
-    {
-      "name": "BareMetal"
-    },
-    {
-      "name": "Ovm"
-    },
-    {
-      "name": "LXC"
-    },
-    {
-      "name": "Ovm3"
-    }
-  ]
-}
-```
-
 |Element|Description|Type|
 |-------|-----------|----|
 |**jobid**|string|The UUID of the latest async job acting on this object|
 |**name**|string|Hypervisor name|
 |**jobstatus**|integer|The current status of the latest async job acting on this object|
+
+# Template
+
+## listNuageVspDomainTemplates
+
+This command lists Nuage VSP domain templates.
+
+<aside class="notice">
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists Nuage VSP domain templates:
+
+```shell
+$ cmk listNuageVspDomainTemplates
+```
+
+`listNuageVspDomainTemplates`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**zoneid**|The zone ID|uuid|255|false|
+|**keyword**|Filters the domain templates which contain the keyword|string|255|false|
+|**physicalnetworkid**|The physical network ID|uuid|255|false|
+|**domainid**|The domain ID|uuid|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**jobid**|The UUID of the latest async job acting on this object|string|
