@@ -1171,6 +1171,66 @@ $ cmk listFirewallRules
 |**tags**|The list of resource tags associated with the rule|list|
 |**id**|The ID of the firewall rule|string|
 
+## listPortForwardingRules
+
+This command lists all port forwarding rules for an IP address.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists all port forwarding rules for an IP address:
+
+```shell
+$ cmk listPortForwardingRules
+```
+
+`listPortForwardingRules`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**networkid**|List port forwarding rules for certain network|uuid|255|false|
+|**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domain ID till leaves|boolean|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false.|boolean|255|false|
+|**account**|List resources by account. Must be used with the domain ID parameter.|string|255|false|
+|**fordisplay**|List resources by display flag; only ROOT admin is eligible to pass this parameter|boolean|255|false|
+|**tags**|List resources by tags (key/value pairs)|map|255|false|
+|**id**|Lists rule with the specified ID|uuid|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**domainid**|List only resources belonging to the domain specified|uuid|255|false|
+|**keyword**|List by keyword|string|255|false|
+|**page**|Page|integer|255|false|
+|**ipaddressid**|The ID of IP address of the port forwarding services|uuid|255|false|
+|**projectid**|List objects by project|uuid|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**virtualmachineid**|The VM ID for the port forwarding rule|string|
+|**publicport**|The starting port of port forwarding rule's public port range|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**protocol**|The protocol of the port forwarding rule|string|
+|**id**|The ID of the port forwarding rule|string|
+|**privateendport**|The ending port of port forwarding rule's private port range|string|
+|**vmguestip**|The VM IP address for the port forwarding rule|string|
+|**tags**|The list of resource tags associated with the rule|list|
+|**networkid**|The ID of the guest network the port forwarding rule belongs to|string|
+|**virtualmachinedisplayname**|The VM display name for the port forwarding rule|string|
+|**cidrlist**|The CIDR list to forward traffic from|string|
+|**publicendport**|The ending port of port forwarding rule's private port range|string|
+|**virtualmachinename**|The VM name for the port forwarding rule|string|
+|**ipaddress**|The public IP address for the port forwarding rule|string|
+|**state**|The state of the rule|string|
+|**ipaddressid**|The public IP address ID for the port forwarding rule|string|
+|**fordisplay**|Is firewall for display to the regular user|boolean|
+|**privateport**|The starting port of port forwarding rule's private port range|string|
+
 ## updateFirewallRule
 
 This command updates firewall rule.
@@ -1217,6 +1277,60 @@ $ cmk updateFirewallRule
 |**destcidrlist**|The CIDR list to forward traffic to|string|
 |**state**|The state of the rule|string|
 |**startport**|The starting port of firewall rule's port range|integer|
+
+## updatePortForwardingRule
+
+This command updates a port forwarding rule. Only the private port and the virtual machine can be updated.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command updates a port forwarding rule:
+
+```shell
+$ cmk updatePortForwardingRule
+```
+
+`updatePortForwardingRule`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**fordisplay**|An optional field, whether to the display the rule to the end user or not|boolean|255|false|
+|**id**|The ID of the port forwarding rule|uuid|255|true|
+|**privateendport**|The private end port of the port forwarding rule|integer|255|false|
+|**privateport**|The private start port of the port forwarding rule|integer|255|false|
+|**virtualmachineid**|The ID of the virtual machine for the port forwarding rule|uuid|255|false|
+|**customid**|An optional field, in case you want to set a custom ID to the resource. Allowed to Root Admins only.|string|255|false|
+|**vmguestip**|VM guest nic Secondary IP address for the port forwarding rule|string|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**privateport**|The starting port of port forwarding rule's private port range|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**fordisplay**|Is firewall for display to the regular user|boolean|
+|**protocol**|The protocol of the port forwarding rule|string|
+|**publicport**|The starting port of port forwarding rule's public port range|string|
+|**state**|The state of the rule|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**virtualmachineid**|The VM ID for the port forwarding rule|string|
+|**tags**|The list of resource tags associated with the rule|list|
+|**publicendport**|The ending port of port forwarding rule's private port range|string|
+|**networkid**|The ID of the guest network the port forwarding rule belongs to|string|
+|**id**|The ID of the port forwarding rule|string|
+|**privateendport**|The ending port of port forwarding rule's private port range|string|
+|**ipaddress**|The public IP address for the port forwarding rule|string|
+|**vmguestip**|The VM IP address for the port forwarding rule|string|
+|**ipaddressid**|The public IP address ID for the port forwarding rule|string|
+|**virtualmachinedisplayname**|The VM display name for the port forwarding rule|string|
+|**virtualmachinename**|The VM name for the port forwarding rule|string|
+|**cidrlist**|The CIDR list to forward traffic from|string|
 
 # Hypervisor
 
@@ -2213,6 +2327,54 @@ $ cmk listIpForwardingRules
 
 # Network
 
+## listNetworkACLLists
+
+This command lists all network ACLs.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists all network ACLs:
+
+```shell
+$ cmk listNetworkACLLists
+```
+
+`listNetworkACLLists`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**account**|List resources by account. Must be used with the domainId parameter.|string|255|false|
+|**fordisplay**|List resources by display flag; only ROOT admin is eligible to pass this parameter|boolean|255|false|
+|**vpcid**|List network ACLs by VPC ID|uuid|255|false|
+|**id**|Lists network ACL with the specified ID|uuid|255|false|
+|**domainid**|List only resources belonging to the domain specified|uuid|255|false|
+|**page**|Page|integer|255|false|
+|**networkid**|List network ACLs by network ID|uuid|255|false|
+|**projectid**|List objects by project|uuid|255|false|
+|**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domain ID till leaves|boolean|255|false|
+|**name**|List network ACLs by specified name|string|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false|boolean|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**keyword**|List by keyword|string|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**fordisplay**|Is ACL for display to the regular user|boolean|
+|**vpcid**|ID of the VPC this ACL is associated with|string|
+|**id**|The ID of the ACL|string|
+|**description**|Description of the ACL|string|
+|**name**|The Name of the ACL|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+
 ## listNetworkACLs
 
 This command lists all network ACL items.
@@ -3136,6 +3298,43 @@ $ cmk authorizeSecurityGroupEgress
 |**securitygroupname**|Security group name|string|
 |**ruleid**|The ID of the security group rule|string|
 
+## deleteSecurityGroup
+
+This command deletes security group.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command deletes security group:
+
+```shell
+$ cmk deleteSecurityGroup
+```
+
+`deleteSecurityGroup`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**domainid**|The domain ID of account owning the security group|uuid|255|false|
+|**projectid**|The project of the security group|uuid|255|false|
+|**name**|The ID of the security group. Mutually exclusive with id parameter.|string|255|false|
+|**id**|The ID of the security group. Mutually exclusive with name parameter.|uuid|255|false|
+|**account**|The account of the security group. Must be specified with domain ID.|string|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**success**|True if operation is executed successfully|boolean|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+
 ## listSecurityGroups
 
 This command lists security groups.
@@ -3670,6 +3869,128 @@ $ cmk copyTemplate
 |**bits**|The processor bit size|int|
 |**passwordenabled**|True if the reset password feature is enabled, false otherwise|boolean|
 
+## createTemplate
+
+This command creates a template of a virtual machine. The virtual machine must be in a STOPPED state. A template created from this command is automatically designated as a private template visible to the account that created it.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command creates a template of a virtual machine:
+
+```shell
+$ cmk createTemplate
+```
+
+`createTemplate`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**snapshotid**|The ID of the snapshot the template is being created from. Either this parameter, or volumeId has to be passed in.|uuid|255|false|
+|**projectid**|Create template for the project|uuid|255|false|
+|**isfeatured**|True if this template is a featured template, false otherwise|boolean|255|false|
+|**ostypeid**|The ID of the OS Type that best represents the OS of this template|uuid|255|true|
+|**requireshvm**|True if the template requires HVM, false otherwise|boolean|255|false|
+|**url**|Optional, only for baremetal hypervisor. The directory name where template stored on CIFS server|string|2048|false|
+|**volumeid**|The ID of the disk volume the template is being created from. Either this parameter, or snapshotId has to be passed in|uuid|255|false|
+|**bits**|32 or 64 bit|integer|255|false|
+|**details**|Template details in key/value pairs using format details[i].keyname=keyvalue. Example: details[0].hypervisortoolsversion=xenserver61|map|255|false|
+|**templatetag**|The tag for this template|string|255|false|
+|**ispublic**|True if this template is a public template, false otherwise|boolean|255|false|
+|**name**|The name of the template|string|255|true|
+|**displaytext**|The display text of the template. This is usually used for display purposes.|string|4096|true|
+|**virtualmachineid**|Optional, VM ID. If this presents, it is going to create a baremetal template for VM this ID refers to. This is only for VM whose hypervisor type is BareMetal.|uuid|255|false|
+|**passwordenabled**|True if the template supports the password reset feature; default is false|boolean|255|false|
+|**isdynamicallyscalable**|True if template contains XS/VMWare tools in order to support dynamic scaling of VM CPU/memory|boolean|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**isfeatured**|True if this template is a featured template, false otherwise|boolean|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**id**|The template ID|string|
+|**hostid**|The ID of the secondary storage host for the template|string|
+|**format**|The format of the template|imageformat|
+|**isdynamicallyscalable**|True if template contains XS/VMWare tools in order to support dynamic scaling of VM CPU/memory|boolean|
+|**zonename**|The name of the zone for this template|string|
+|**templatetag**|The tag of this template|string|
+|**bootable**|True if the ISO is bootable, false otherwise|boolean|
+|**ostypename**|The name of the OS type for this template|string|
+|**directdownload**|KVM Only: true if template is directly downloaded to Primary Storage bypassing Secondary Storage|boolean|
+|**removed**|The date this template was removed|date|
+|**passwordenabled**|True if the reset password feature is enabled, false otherwise|boolean|
+|**sshkeyenabled**|True if template is sshkey enabled, false otherwise|boolean|
+|**ispublic**|True if this template is a public template, false otherwise|boolean|
+|**hypervisor**|The hypervisor on which the template runs|string|
+|**size**|The size of the template|long|
+|**crossZones**|True if the template is managed across all Zones, false otherwise|boolean|
+|**isready**|True if the template is ready to be deployed from, false otherwise|boolean|
+|**childtemplates**|If root disk template, then IDs of the datas disk templates this template owns|set|
+|**zoneid**|The ID of the zone for this template|string|
+|**project**|The project name of the template|string|
+|**physicalsize**|The physical size of the template|long|
+|**details**|Additional key/value details tied with template|map|
+|**sourcetemplateid**|The template ID of the parent template if present|string|
+|**domain**|The name of the domain to which the template belongs|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**templatetype**|The type of the template|string|
+|**bits**|The processor bit size|int|
+|**status**|The status of the template|string|
+|**parenttemplateid**|If Datadisk template, then ID of the root disk template this template belongs to|string|
+|**ostypeid**|The ID of the OS type for this template|string|
+|**isextractable**|True if the template is extractable, false otherwise|boolean|
+|**accountid**|The account ID to which the template belongs|string|
+|**account**|The account name to which the template belongs|string|
+|**created**|The date this template was created|date|
+|**displaytext**|The template display text|string|
+|**checksum**|Checksum of the template|string|
+|**projectid**|The project ID of the template|string|
+|**tags**|The list of resource tags associated|set|
+|**hostname**|The name of the secondary storage host for the template|string|
+|**name**|The template name|string|
+|**domainid**|The ID of the domain to which the template belongs|string|
+
+## deleteTemplate
+
+This command deletes a template from the system. All virtual machines using the deleted template will not be affected.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command deletes a template from the system:
+
+```shell
+$ cmk deleteTemplate
+```
+
+`deleteTemplate`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**forced**|Force delete a template|boolean|255|false|
+|**zoneid**|The ID of zone of the template|uuid|255|false|
+|**id**|The ID of the template|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**displaytext**|Any text associated with the success or failure|string|
+|**success**|True if operation is executed successfully|boolean|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+
 ## listNuageVspDomainTemplates
 
 This command lists Nuage VSP domain templates.
@@ -3911,6 +4232,45 @@ $ cmk updateTemplate
 |**zonename**|The name of the zone for this template|string|
 |**hypervisor**|The hypervisor on which the template runs|string|
 |**account**|The account name to which the template belongs|string|
+
+## updateTemplatePermissions
+
+This command updates a template visibility permissions. A public template is visible to all accounts within the same domain. A private template is visible only to the owner of the template. A priviledged template is a private template with account permissions added. Only accounts specified under the template permissions are visible to them.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command updates a template visibility permissions:
+
+```shell
+$ cmk updateTemplatePermissions
+```
+
+`updateTemplatePermissions`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**ispublic**|True for public template/ISO, false for private templates/ISOs|boolean|255|false|
+|**id**|The template ID|uuid|255|true|
+|**isfeatured**|True for featured template/ISO, false otherwise|boolean|255|false|
+|**isextractable**|True if the template/ISO is extractable, false otherwise. Can be set only by root admin.|boolean|255|false|
+|**accounts**|A comma delimited list of accounts. If specified, "op" parameter has to be passed in.|list|255|false|
+|**projectids**|A comma delimited list of projects. If specified, "op" parameter has to be passed in.|list|255|false|
+|**op**|Permission operator (add, remove, reset)|string|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**success**|True if operation is executed successfully|boolean|
 
 # User
 
@@ -4371,6 +4731,100 @@ $ cmk rebootVirtualMachine
 |**cpuused**|The amount of the VM's CPU currently used|string|
 |**memoryintfreekbs**|The internal memory thats free in VM|long|
 |**keypair**|SSH key-pair|string|
+
+## resetPasswordForVirtualMachine
+
+This command resets the password for virtual machine. The virtual machine must be in a "Stopped" state and the template must already support this feature for this command to take effect.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command resets the password for virtual machine:
+
+```shell
+$ cmk resetPasswordForVirtualMachine
+```
+
+`resetPasswordForVirtualMachine`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the virtual machine|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**groupid**|The group ID of the virtual machine|string|
+|**name**|The name of the virtual machine|string|
+|**securitygroup**|List of security groups associated with the virtual machine|set|
+|**hypervisor**|The hypervisor on which the template runs|string|
+|**created**|The date when this virtual machine was created|date|
+|**memorykbs**|The memory used by the VM|long|
+|**rootdevicetype**|Device type of the root volume|string|
+|**ostypeid**|OS type ID of the VM|string|
+|**publicipid**|Public IP address ID associated with VM via Static nat rule|string|
+|**cpunumber**|The number of CPU this virtual machine is running with|integer|
+|**state**|The state of the virtual machine|string|
+|**haenable**|True if high-availability is enabled, false otherwise|boolean|
+|**keypair**|SSH key-pair|string|
+|**domain**|The name of the domain in which the virtual machine exists|string|
+|**templatedisplaytext**|An alternate display text of the template for the virtual machine|string|
+|**hostid**|The ID of the host for the virtual machine|string|
+|**servicestate**|State of the Service from LB rule|string|
+|**serviceofferingname**|The name of the service offering of the virtual machine|string|
+|**diskkbswrite**|The write (bytes) of disk on the VM|long|
+|**diskofferingname**|The name of the disk offering of the virtual machine|string|
+|**passwordenabled**|True if the password rest feature is enabled, false otherwise|boolean|
+|**isoname**|The name of the ISO attached to the virtual machine|string|
+|**memorytargetkbs**|The target memory in VM|long|
+|**networkkbsread**|The incoming network traffic on the VM|long|
+|**projectid**|The project ID of the VM|string|
+|**userid**|The user's ID who deployed the virtual machine|string|
+|**domainid**|The ID of the domain in which the virtual machine exists|string|
+|**affinitygroup**|List of affinity groups associated with the virtual machine|set|
+|**cpuused**|The amount of the VM's CPU currently used|string|
+|**zonename**|The name of the availability zone for the virtual machine|string|
+|**diskkbsread**|The read (bytes) of disk on the VM|long|
+|**guestosid**|OS type ID of the virtual machine|string|
+|**instancename**|Instance name of the user VM; this parameter is returned to the ROOT admin only|string|
+|**displayname**|User generated name. The name of the virtual machine is returned if no display name exists.|string|
+|**templateid**|The ID of the template for the virtual machine. A -1 is returned if the virtual machine was created from an ISO file.|string|
+|**tags**|The list of resource tags associated|set|
+|**isdynamicallyscalable**|True if VM contains XS/VMWare tools in order to support dynamic scaling of VM CPU/memory.|boolean|
+|**id**|The ID of the virtual machine|string|
+|**hostname**|The name of the host for the virtual machine|string|
+|**zoneid**|The ID of the availability zone for the virtual machine|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**diskofferingid**|The ID of the disk offering of the virtual machine|string|
+|**memory**|The memory allocated for the virtual machine|integer|
+|**forvirtualnetwork**|The virtual network for the service offering|boolean|
+|**memoryintfreekbs**|The internal memory thats free in VM|long|
+|**templatename**|The name of the template for the virtual machine|string|
+|**username**|The user's name who deployed the virtual machine|string|
+|**displayvm**|An optional field whether to the display the VM to the end user or not|boolean|
+|**publicip**|Public IP address ID associated with VM via Static nat rule|string|
+|**project**|The project name of the VM|string|
+|**serviceofferingid**|The ID of the service offering of the virtual machine|string|
+|**diskioread**|The read (io) of disk on the VM|long|
+|**nic**|The list of nics associated with VM|set|
+|**password**|The password (if exists) of the virtual machine|string|
+|**account**|The account associated with the virtual machine|string|
+|**rootdeviceid**|Device ID of the root volume|long|
+|**details**|VM details in key/value pairs|map|
+|**isoid**|The ID of the ISO attached to the virtual machine|string|
+|**isodisplaytext**|An alternate display text of the ISO attached to the virtual machine|string|
+|**group**|The group name of the virtual machine|string|
+|**networkkbswrite**|The outgoing network traffic on the host|long|
+|**diskiowrite**|The write (io) of disk on the VM|long|
+|**cpuspeed**|The speed of each CPU|integer|
+|**vgpu**|The VGPU type used by the virtual machine|string|
 
 ## restoreVirtualMachine
 
@@ -5222,6 +5676,39 @@ $ cmk deleteStaticRoute
 |**success**|True if operation is executed successfully|boolean|
 |**displaytext**|Any text associated with the success or failure|string|
 
+## deleteVPC
+
+This command deletes a VPC.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command deletes a VPC:
+
+```shell
+$ cmk deleteVPC
+```
+
+`deleteVPC`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the VPC|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**success**|True if operation is executed successfully|boolean|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**displaytext**|Any text associated with the success or failure|string|
+
 ## listStaticRoutes
 
 This command lists all static routes.
@@ -5524,6 +6011,39 @@ $ cmk deleteRemoteAccessVpn
 |**displaytext**|Any text associated with the success or failure|string|
 |**jobid**|The UUID of the latest async job acting on this object|string|
 
+## deleteVpnCustomerGateway
+
+This command deletes site to site VPN customer gateway.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command deletes site to site VPN customer gateway:
+
+```shell
+$ cmk deleteVpnCustomerGateway
+```
+
+`deleteVpnCustomerGateway`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|ID of customer gateway|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**success**|True if operation is executed successfully|boolean|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+
 ## deleteVpnGateway
 
 This command deletes site to site VPN gateway.
@@ -5729,3 +6249,46 @@ $ cmk updateVpnCustomerGateway
 |**account**|The owner|string|
 |**removed**|The date and time the host was removed|date|
 |**domainid**|The domain ID of the owner|string|
+
+## updateVpnGateway
+
+This command updates site to site VPN local gateway.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command updates site to site VPN local gateway:
+
+```shell
+$ cmk updateVpnGateway
+```
+
+`updateVpnGateway`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|ID of customer gateway|uuid|255|true|
+|**customid**|An optional field, in case you want to set a custom ID to the resource. Allowed to Root Admins only.|string|255|false|
+|**fordisplay**|An optional field, whether to the display the VPN to the end user or not|boolean|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**fordisplay**|Is VPN gateway for display to the regular user|boolean|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**domainid**|The domain ID of the owner|string|
+|**projectid**|The project ID|string|
+|**id**|The vpn gateway ID|string|
+|**vpcid**|The VPC ID of this gateway|string|
+|**publicip**|The public IP address|string|
+|**project**|The project name|string|
+|**account**|The owner|string|
+|**removed**|The date and time the host was removed|date|
+|**domain**|The domain name of the owner|string|
