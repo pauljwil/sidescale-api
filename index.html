@@ -1712,17 +1712,47 @@ Not asynchronous
 <td>The domain ID the public IP address is associated with</td>
 <td>string</td>
 </tr>
+<tr>
+<td><strong>zoneid</strong></td>
+<td>The ID of the zone the public IP address belongs to</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>vpcid</strong></td>
+<td>VPC the IP belongs to</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>tags</strong></td>
+<td>The list of resource tags associated with IP address</td>
+<td>list</td>
+</tr>
+<tr>
+<td><strong>fordisplay</strong></td>
+<td>Is public IP for display to the regular user</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>vlanid</strong></td>
+<td>The ID of the VLAN associated with the IP address. This parameter is visible to ROOT admins only.</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>domain</strong></td>
+<td>The domain the public IP address is associated with</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>allocated</strong></td>
+<td>Date the public IP address was acquired</td>
+<td>date</td>
+</tr>
+<tr>
+<td><strong>isportable</strong></td>
+<td>Is public IP portable across the zones</td>
+<td>boolean</td>
+</tr>
 </tbody></table>
-
-<p>undefined
-|<strong>zoneid</strong>|The ID of the zone the public IP address belongs to|string|
-|<strong>vpcid</strong>|VPC the IP belongs to|string|
-|<strong>tags</strong>|The list of resource tags associated with IP address|list|
-|<strong>fordisplay</strong>|Is public IP for display to the regular user|boolean|
-|<strong>vlanid</strong>|The ID of the VLAN associated with the IP address. This parameter is visible to ROOT admins only.|string|
-|<strong>domain</strong>|The domain the public IP address is associated with|string|
-|<strong>allocated</strong>|Date the public IP address was acquired|date|
-|<strong>isportable</strong>|Is public IP portable across the zones|boolean|</p>
 <h1 id='affinity-group'>Affinity group</h1><h2 id='createaffinitygroup'>createAffinityGroup</h2>
 <p>This command creates an affinity/anti-affinity group.</p>
 
@@ -4731,7 +4761,7 @@ Not asynchronous
 </tr>
 <tr>
 <td><strong>listall</strong></td>
-<td>If set to false, list only resources belonging to the command&#39;s caller; if set to true - list resources that the caller is authorized to see. Default value is false</td>
+<td>If set to false, list only resources belonging to the command&#39;s caller; if set to true - list resources that the caller is authorized to see. Default value is false.</td>
 <td>boolean</td>
 <td>255</td>
 <td>false</td>
@@ -10037,47 +10067,197 @@ Not asynchronous
 <td>The name of the zone the network belongs to</td>
 <td>string</td>
 </tr>
+<tr>
+<td><strong>networkofferingname</strong></td>
+<td>Name of the network offering the network is created from</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>reservediprange</strong></td>
+<td>The network&#39;s IP range not to be used by CloudStack guest VMs and can be used for non CloudStack purposes</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>physicalnetworkid</strong></td>
+<td>The physical network ID</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>ip6gateway</strong></td>
+<td>The gateway of IPv6 network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>issystem</strong></td>
+<td>True if network is system, false otherwise</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>canusefordeploy</strong></td>
+<td>List networks available for VM deployment</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>subdomainaccess</strong></td>
+<td>True if users from subdomains can access the domain level network</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>networkofferingid</strong></td>
+<td>Network offering ID the network is created from</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>account</strong></td>
+<td>The owner of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>The displaytext of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>ip6cidr</strong></td>
+<td>The CIDR of IPv6 network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>restartrequired</strong></td>
+<td>True network requires restart</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>The name of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>projectid</strong></td>
+<td>The project ID of the IP address</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>service</strong></td>
+<td>The list of services</td>
+<td>list</td>
+</tr>
+<tr>
+<td><strong>zonesnetworkspans</strong></td>
+<td>If a network is enabled for &#39;streched l2 subnet&#39; then represents zones on which network currently spans</td>
+<td>set</td>
+</tr>
+<tr>
+<td><strong>acltype</strong></td>
+<td>ACL type - access type to the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>type</strong></td>
+<td>The type of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>networkofferingconservemode</strong></td>
+<td>True if network offering is IP conserve mode enabled</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>networkdomain</strong></td>
+<td>The network domain</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>traffictype</strong></td>
+<td>The traffic type of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>zoneid</strong></td>
+<td>Zone ID of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>externalid</strong></td>
+<td>The external ID of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>vlan</strong></td>
+<td>The VLAN of the network. This parameter is visible to ROOT admins only.</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>strechedl2subnet</strong></td>
+<td>True if network can span multiple zones</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>gateway</strong></td>
+<td>The network&#39;s gateway</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>netmask</strong></td>
+<td>The network&#39;s netmask</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>dns2</strong></td>
+<td>The second DNS for the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>broadcasturi</strong></td>
+<td>Broadcast URI of the network. This parameter is visible to ROOT admins only.</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>project</strong></td>
+<td>The project name of the address</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>related</strong></td>
+<td>Related to what other network configuration</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td>The ID of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>displaynetwork</strong></td>
+<td>An optional field, whether to the display the network to the end user or not</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>ispersistent</strong></td>
+<td>List networks that are persistent</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td><strong>networkofferingdisplaytext</strong></td>
+<td>Display text of the network offering the network is created from</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>broadcastdomaintype</strong></td>
+<td>Broadcast domain type of the network</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>vpcid</strong></td>
+<td>VPC the network belongs to</td>
+<td>string</td>
+</tr>
 </tbody></table>
-
-<p>undefined
-|<strong>networkofferingname</strong>|Name of the network offering the network is created from|string|
-|<strong>reservediprange</strong>|The network&#39;s IP range not to be used by CloudStack guest VMs and can be used for non CloudStack purposes|string|
-|<strong>physicalnetworkid</strong>|The physical network ID|string|
-|<strong>ip6gateway</strong>|The gateway of IPv6 network|string|
-|<strong>issystem</strong>|True if network is system, false otherwise|boolean|
-|<strong>canusefordeploy</strong>|List networks available for VM deployment|boolean|
-|<strong>subdomainaccess</strong>|True if users from subdomains can access the domain level network|boolean|
-|<strong>networkofferingid</strong>|Network offering ID the network is created from|string|
-|<strong>account</strong>|The owner of the network|string|
-|<strong>displaytext</strong>|The displaytext of the network|string|
-|<strong>ip6cidr</strong>|The CIDR of IPv6 network|string|
-|<strong>restartrequired</strong>|True network requires restart|boolean|
-|<strong>name</strong>|The name of the network|string|
-|<strong>projectid</strong>|The project ID of the IP address|string|
-|<strong>service</strong>|The list of services|list|
-|<strong>zonesnetworkspans</strong>|If a network is enabled for &#39;streched l2 subnet&#39; then represents zones on which network currently spans|set|
-|<strong>acltype</strong>|ACL type - access type to the network|string|
-|<strong>type</strong>|The type of the network|string|
-|<strong>networkofferingconservemode</strong>|True if network offering is IP conserve mode enabled|boolean|
-|<strong>networkdomain</strong>|The network domain|string|
-|<strong>traffictype</strong>|The traffic type of the network|string|
-|<strong>zoneid</strong>|Zone ID of the network|string|
-|<strong>externalid</strong>|The external ID of the network|string|
-|<strong>jobstatus</strong>|The current status of the latest async job acting on this object|integer|
-|<strong>vlan</strong>|The VLAN of the network. This parameter is visible to ROOT admins only.|string|
-|<strong>strechedl2subnet</strong>|True if network can span multiple zones|boolean|
-|<strong>gateway</strong>|The network&#39;s gateway|string|
-|<strong>netmask</strong>|The network&#39;s netmask|string|
-|<strong>dns2</strong>|The second DNS for the network|string|
-|<strong>broadcasturi</strong>|Broadcast URI of the network. This parameter is visible to ROOT admins only.|string|
-|<strong>project</strong>|The project name of the address|string|
-|<strong>related</strong>|Related to what other network configuration|string|
-|<strong>id</strong>|The ID of the network|string|
-|<strong>displaynetwork</strong>|An optional field, whether to the display the network to the end user or not|boolean|
-|<strong>ispersistent</strong>|List networks that are persistent|boolean|
-|<strong>networkofferingdisplaytext</strong>|Display text of the network offering the network is created from|string|
-|<strong>broadcastdomaintype</strong>|Broadcast domain type of the network|string|
-|<strong>vpcid</strong>|VPC the network belongs to|string|</p>
 <h2 id='replacenetworkacllist'>replaceNetworkACLList</h2>
 <p>This command replaces ACL associated with a network or private gateway.</p>
 
@@ -10141,12 +10321,17 @@ Asynchronous
 <td>True if operation is executed successfully</td>
 <td>boolean</td>
 </tr>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>Any text associated with the success or failure</td>
+<td>string</td>
+</tr>
 </tbody></table>
-
-<p>undefined
-|<strong>jobid</strong>|The UUID of the latest async job acting on this object|string|
-undefined
-|<strong>displaytext</strong>|Any text associated with the success or failure|string|</p>
 <h2 id='restartnetwork'>restartNetwork</h2>
 <p>This command restarts the network; includes 1) restarting network elements - virtual routers, DHCP servers 2) reapplying all public IPs 3) reapplying loadBalancing/portForwarding rules.</p>
 
@@ -12056,6 +12241,35 @@ Asynchronous
 <td>true</td>
 </tr>
 </tbody></table>
+<h3 id='response-schema-72'>Response schema</h3>
+<table><thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>Any text associated with the success or failure</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>success</strong></td>
+<td>True if operation is executed successfully</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
 <h2 id='listtags'>listTags</h2>
 <p>This command lists resource tag(s).</p>
 
@@ -12171,7 +12385,7 @@ Not asynchronous
 <td>false</td>
 </tr>
 </tbody></table>
-<h3 id='response-schema-72'>Response schema</h3>
+<h3 id='response-schema-73'>Response schema</h3>
 <table><thead>
 <tr>
 <th>Element</th>
@@ -12238,35 +12452,6 @@ Not asynchronous
 <td><strong>jobid</strong></td>
 <td>The UUID of the latest async job acting on this object</td>
 <td>string</td>
-</tr>
-</tbody></table>
-<h3 id='response-schema-73'>Response schema</h3>
-<table><thead>
-<tr>
-<th>Element</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead><tbody>
-<tr>
-<td><strong>jobid</strong></td>
-<td>The UUID of the latest async job acting on this object</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>jobstatus</strong></td>
-<td>The current status of the latest async job acting on this object</td>
-<td>integer</td>
-</tr>
-<tr>
-<td><strong>displaytext</strong></td>
-<td>Any text associated with the success or failure</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>success</strong></td>
-<td>True if operation is executed successfully</td>
-<td>boolean</td>
 </tr>
 </tbody></table>
 <h1 id='resource-metadata'>Resource metadata</h1><h2 id='listresourcedetails'>listResourceDetails</h2>
@@ -12869,18 +13054,47 @@ Not asynchronous
 <td>The current status of the latest async job acting on this object</td>
 <td>integer</td>
 </tr>
+<tr>
+<td><strong>description</strong></td>
+<td>The description of the security group</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>egressrule</strong></td>
+<td>The list of egress rules associated with the security group</td>
+<td>set</td>
+</tr>
+<tr>
+<td><strong>projectid</strong></td>
+<td>The project id of the group</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>domainid</strong></td>
+<td>The domain ID of the security group</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>id</strong></td>
+<td>The ID of the security group</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>tags</strong></td>
+<td>The list of resource tags associated with the rule</td>
+<td>set</td>
+</tr>
+<tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>virtualmachinecount</strong></td>
+<td>The number of virtualmachines associated with this securitygroup</td>
+<td>integer</td>
+</tr>
 </tbody></table>
-
-<p>undefined
-|<strong>description</strong>|The description of the security group|string|
-|<strong>egressrule</strong>|The list of egress rules associated with the security group|set|
-|<strong>projectid</strong>|The project id of the group|string|
-|<strong>domainid</strong>|The domain ID of the security group|string|
-|<strong>id</strong>|The ID of the security group|string|
-|<strong>tags</strong>|The list of resource tags associated with the rule|set|
-undefined
-|<strong>jobid</strong>|The UUID of the latest async job acting on this object|string|
-|<strong>virtualmachinecount</strong>|The number of virtualmachines associated with this securitygroup|integer|</p>
 <h2 id='revokesecuritygroupegress'>revokeSecurityGroupEgress</h2>
 <p>This command deletes a particular egress rule from this security group.</p>
 
