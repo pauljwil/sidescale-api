@@ -317,7 +317,6 @@ $ cmk listPublicIpAddresses
 |**purpose**|Purpose of the IP address. In Acton this value is not null for IPs with isSystem=true, and can have either StaticNat or LB value|string|
 |**isstaticnat**|True if this ip is for static NAT, false otherwise|boolean|
 |**domainid**|The domain ID the public IP address is associated with|string|
-undefined
 |**zoneid**|The ID of the zone the public IP address belongs to|string|
 |**vpcid**|VPC the IP belongs to|string|
 |**tags**|The list of resource tags associated with IP address|list|
@@ -1397,7 +1396,7 @@ $ cmk listFirewallRules
 |**projectid**|List objects by project|uuid|255|false|
 |**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domain ID till leaves|boolean|255|false|
 |**networkid**|List firewall rules for certain network|uuid|255|false|
-|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false|boolean|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false.|boolean|255|false|
 |**id**|Lists rule with the specified ID.|uuid|255|false|
 |**page**|Page|integer|255|false|
 
@@ -3050,7 +3049,6 @@ $ cmk listNetworks
 |**domainid**|The domain ID of the network owner|string|
 |**jobid**|The UUID of the latest async job acting on this object|string|
 |**zonename**|The name of the zone the network belongs to|string|
-undefined
 |**networkofferingname**|Name of the network offering the network is created from|string|
 |**reservediprange**|The network's IP range not to be used by CloudStack guest VMs and can be used for non CloudStack purposes|string|
 |**physicalnetworkid**|The physical network ID|string|
@@ -3122,9 +3120,7 @@ $ cmk replaceNetworkACLList
 |-------|-----------|----|
 |**jobstatus**|The current status of the latest async job acting on this object|integer|
 |**success**|True if operation is executed successfully|boolean|
-undefined
 |**jobid**|The UUID of the latest async job acting on this object|string|
-undefined
 |**displaytext**|Any text associated with the success or failure|string|
 
 ## restartNetwork
@@ -3731,6 +3727,15 @@ $ cmk deleteTags
 |**resourcetype**|Delete tag by resource type|string|255|true|
 |**resourceids**|Delete tags for resource ID(s)|list|255|true|
 
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**displaytext**|Any text associated with the success or failure|string|
+|**success**|True if operation is executed successfully|boolean|
+
 ## listTags
 
 This command lists resource tag(s).
@@ -3783,15 +3788,6 @@ $ cmk listTags
 |**key**|Tag key name|string|
 |**account**|The account associated with the tag|string|
 |**jobid**|The UUID of the latest async job acting on this object|string|
-
-### Response schema
-
-|Element|Description|Type|
-|-------|-----------|----|
-|**jobid**|The UUID of the latest async job acting on this object|string|
-|**jobstatus**|The current status of the latest async job acting on this object|integer|
-|**displaytext**|Any text associated with the success or failure|string|
-|**success**|True if operation is executed successfully|boolean|
 
 # Resource metadata
 
@@ -3985,14 +3981,12 @@ $ cmk listSecurityGroups
 |**project**|The project name of the group|string|
 |**ingressrule**|The list of ingress rules associated with the security group|set|
 |**jobstatus**|The current status of the latest async job acting on this object|integer|
-undefined
 |**description**|The description of the security group|string|
 |**egressrule**|The list of egress rules associated with the security group|set|
 |**projectid**|The project id of the group|string|
 |**domainid**|The domain ID of the security group|string|
 |**id**|The ID of the security group|string|
 |**tags**|The list of resource tags associated with the rule|set|
-undefined
 |**jobid**|The UUID of the latest async job acting on this object|string|
 |**virtualmachinecount**|The number of virtualmachines associated with this securitygroup|integer|
 

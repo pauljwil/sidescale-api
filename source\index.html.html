@@ -853,11 +853,6 @@ Not asynchronous
 <td>string</td>
 </tr>
 <tr>
-<td>undefined</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td><strong>zoneid</strong></td>
 <td>The ID of the zone the public IP address belongs to</td>
 <td>string</td>
@@ -3935,7 +3930,7 @@ Not asynchronous
 </tr>
 <tr>
 <td><strong>listall</strong></td>
-<td>If set to false, list only resources belonging to the command&apos;s caller; if set to true - list resources that the caller is authorized to see. Default value is false</td>
+<td>If set to false, list only resources belonging to the command&apos;s caller; if set to true - list resources that the caller is authorized to see. Default value is false.</td>
 <td>boolean</td>
 <td>255</td>
 <td>false</td>
@@ -9282,11 +9277,6 @@ Not asynchronous
 <td>string</td>
 </tr>
 <tr>
-<td>undefined</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td><strong>networkofferingname</strong></td>
 <td>Name of the network offering the network is created from</td>
 <td>string</td>
@@ -9542,19 +9532,9 @@ Asynchronous
 <td>boolean</td>
 </tr>
 <tr>
-<td>undefined</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td><strong>jobid</strong></td>
 <td>The UUID of the latest async job acting on this object</td>
 <td>string</td>
-</tr>
-<tr>
-<td>undefined</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td><strong>displaytext</strong></td>
@@ -11484,6 +11464,36 @@ Asynchronous
 <td>true</td>
 </tr>
 </tbody></table>
+<h3 id="response-schema">Response schema</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>jobid</strong></td>
+<td>The UUID of the latest async job acting on this object</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>jobstatus</strong></td>
+<td>The current status of the latest async job acting on this object</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><strong>displaytext</strong></td>
+<td>Any text associated with the success or failure</td>
+<td>string</td>
+</tr>
+<tr>
+<td><strong>success</strong></td>
+<td>True if operation is executed successfully</td>
+<td>boolean</td>
+</tr>
+</tbody></table>
 <h2 id="listtags">listTags</h2>
 <p>This command lists resource tag(s).</p>
 <aside class="notice">
@@ -11667,36 +11677,6 @@ Not asynchronous
 <td><strong>jobid</strong></td>
 <td>The UUID of the latest async job acting on this object</td>
 <td>string</td>
-</tr>
-</tbody></table>
-<h3 id="response-schema">Response schema</h3>
-<table>
-<thead>
-<tr>
-<th>Element</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>jobid</strong></td>
-<td>The UUID of the latest async job acting on this object</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>jobstatus</strong></td>
-<td>The current status of the latest async job acting on this object</td>
-<td>integer</td>
-</tr>
-<tr>
-<td><strong>displaytext</strong></td>
-<td>Any text associated with the success or failure</td>
-<td>string</td>
-</tr>
-<tr>
-<td><strong>success</strong></td>
-<td>True if operation is executed successfully</td>
-<td>boolean</td>
 </tr>
 </tbody></table>
 <h1 id="resource-metadata">Resource metadata</h1>
@@ -12306,11 +12286,6 @@ Not asynchronous
 <td>integer</td>
 </tr>
 <tr>
-<td>undefined</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td><strong>description</strong></td>
 <td>The description of the security group</td>
 <td>string</td>
@@ -12339,11 +12314,6 @@ Not asynchronous
 <td><strong>tags</strong></td>
 <td>The list of resource tags associated with the rule</td>
 <td>set</td>
-</tr>
-<tr>
-<td>undefined</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td><strong>jobid</strong></td>
