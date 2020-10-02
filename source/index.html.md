@@ -174,6 +174,75 @@ $ cmk getSolidFireAccountId
 
 # Address
 
+## associateIpAddress
+
+This command acquires and associates a public IP to an account.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command acquires and associates a public IP to an account:
+
+```shell
+$ cmk associateIpAddress
+```
+
+`associateIpAddress`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**zoneid**|The ID of the availability zone you want to acquire an public IP address from|uuid|255|false|
+|**account**|The account to associate with this IP address|string|255|false|
+|**projectid**|Deploy VM for the project|uuid|255|false|
+|**domainid**|The ID of the domain to associate with this IP address|uuid|255|false|
+|**networkid**|The network this IP address should be associated to|uuid|255|false|
+|**isportable**|Should be set to true if public IP is required to be transferable across zones, if not specified defaults to false|boolean|255|false|
+|**fordisplay**|An optional field, whether to the display the IP to the end user or not|boolean|255|false|
+|**regionid**|Region ID from where portable IP is to be associated|integer|255|false|
+|**vpcid**|The VPC you want the IP address to be associated with|uuid|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**zoneid**|The ID of the zone the public IP address belongs to|string|
+|**physicalnetworkid**|The physical network this belongs to|string|
+|**fordisplay**|Is public IP for display to the regular user|boolean|
+|**associatednetworkname**|The name of the Network associated with the IP address|string|
+|**account**|The account the public IP address is associated with|string|
+|**virtualmachinename**|Virtual machine name the ip address is assigned to (not null only for static nat IP)|string|
+|**vlanname**|The VLAN associated with the IP address|string|
+|**state**|State of the ip address. Can be: Allocating, Allocated and Releasing|string|
+|**forvirtualnetwork**|The virtual network for the IP address|boolean|
+|**virtualmachinedisplayname**|Virtual machine display name the IP address is assigned to (not null only for static nat IP)|string|
+|**associatednetworkid**|The ID of the Network associated with the IP address|string|
+|**vmipaddress**|Virtual machine (DNAT) IP address (not null only for static nat IP)|string|
+|**ipaddress**|Public IP address|string|
+|**project**|The project name of the address|string|
+|**allocated**|Date the public IP address was acquired|date|
+|**domainid**|The domain ID the public IP address is associated with|string|
+|**issourcenat**|True if the IP address is a source nat address, false otherwise|boolean|
+|**isstaticnat**|True if this IP is for static nat, false otherwise|boolean|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**vlanid**|The ID of the VLAN associated with the IP address. This parameter is visible to ROOT admins only.|string|
+|**zonename**|The name of the zone the public IP address belongs to|string|
+|**tags**|The list of resource tags associated with IP address|list|
+|**id**|Public IP address id|string|
+|**networkid**|The ID of the Network where IP belongs to|string|
+|**domain**|The domain the public IP address is associated with|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**purpose**|Purpose of the IP address. In Acton this value is not null for IPs with isSystem=true, and can have either StaticNat or LB value.|string|
+|**projectid**|The project ID of the IP address|string|
+|**virtualmachineid**|Virtual machine ID the IP address is assigned to (not null only for static nat IP)|string|
+|**issystem**|True if this IP is system IP (was allocated as a part of deployVm or createLbRule)|boolean|
+|**vpcid**|VPC the IP belongs to|string|
+|**isportable**|Is public IP portable across the zones|boolean|
+
 ## listPublicIpAddresses
 
 This command lists all public IP addresses.
@@ -545,6 +614,39 @@ $ cmk createAutoScalePolicy
 |**account**|The account owning the autoscale policy|string|
 |**duration**|The duration for which the conditions have to be true before action is taken|integer|
 
+## deleteAutoScalePolicy
+
+This command deletes an autoscale policy.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command deletes an autoscale policy:
+
+```shell
+$ cmk deleteAutoScalePolicy
+```
+
+`deleteAutoScalePolicy`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the autoscale policy|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**success**|True if operation is executed successfully|boolean|
+
 ## deleteAutoScaleVmProfile
 
 This command deletes an autoscale VM profile.
@@ -657,6 +759,52 @@ $ cmk disableAutoScaleVmGroup
 |**projectid**|The project ID VM profile|string|
 |**vmprofileid**|The autoscale profile that contains information about the VMs in the VM group|string|
 
+## enableAutoScaleVmGroup
+
+This command enables an AutoScale VM Group.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command enables an AutoScale VM Group:
+
+```shell
+$ cmk enableAutoScaleVmGroup
+```
+
+`enableAutoScaleVmGroup`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the autoscale group|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**projectid**|The project ID VM profile|string|
+|**scaleuppolicies**|List of scaleup autoscale policies|list|
+|**account**|The account owning the instance group|string|
+|**domainid**|The domain ID of the VM profile|string|
+|**maxmembers**|The maximum number of members in the VM group. The number of instances in the vm group will be equal to or less than this number.|int|
+|**fordisplay**|Is group for display to the regular user|boolean|
+|**domain**|The domain name of the VM profile|string|
+|**interval**|The frequency at which the conditions have to be evaluated|int|
+|**id**|The autoscale VM group ID|string|
+|**state**|The current state of the AutoScale VM Group|string|
+|**project**|The project name of the VM profile|string|
+|**minmembers**|The minimum number of members in the VM group. The number of instances in the VM group will be equal to or more than this number.|int|
+|**lbruleid**|The load balancer rule ID|string|
+|**scaledownpolicies**|List of scaledown autoscale policies|list|
+|**vmprofileid**|The autoscale profile that contains information about the VMs in the VM group|string|
+
 ## listConditions
 
 This command lists Conditions for the specific user.
@@ -706,6 +854,109 @@ $ cmk listConditions
 |**id**|The ID of the Condition|string|
 |**project**|The project name of the Condition|string|
 |**relationaloperator**|Relational Operator to be used with threshold|string|
+
+## updateAutoScaleVmGroup
+
+This command updates an existing autoscale VM group.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command updates an existing autoscale VM group:
+
+```shell
+$ cmk updateAutoScaleVmGroup
+```
+
+`updateAutoScaleVmGroup`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**customid**|An optional field, in case you want to set a custom ID to the resource. Allowed to Root Admins only.|string|255|false|
+|**scaledownpolicyids**|List of scaledown autoscale policies|list|255|false|
+|**interval**|The frequency at which the conditions have to be evaluated|integer|255|false|
+|**maxmembers**|The maximum number of members in the VM group. The number of instances in the VM group will be equal to or less than this number.|integer|255|false|
+|**minmembers**|The minimum number of members in the VM group, the number of instances in the VM group will be equal to or more than this number.|integer|255|false|
+|**scaleuppolicyids**|List of scaleup autoscale policies|list|255|false|
+|**fordisplay**|An optional field, whether to the display the group to the end user or not|boolean|255|false|
+|**id**|The ID of the autoscale group|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**scaleuppolicies**|List of scaleup autoscale policies|list|
+|**account**|The account owning the instance group|string|
+|**minmembers**|The minimum number of members in the VM group. The number of instances in the VM group will be equal to or more than this number.|int|
+|**maxmembers**|The maximum number of members in the VM group. The number of instances in the VM group will be equal to or less than this number.|int|
+|**project**|The project name of the VM profile|string|
+|**vmprofileid**|The autoscale profile that contains information about the VMs in the VM group|string|
+|**lbruleid**|The load balancer rule ID|string|
+|**id**|The autoscale VM group ID|string|
+|**scaledownpolicies**|List of scaledown autoscale policies|list|
+|**interval**|The frequency at which the conditions have to be evaluated|int|
+|**fordisplay**|Is group for display to the regular user|boolean|
+|**projectid**|The project ID VM profile|string|
+|**domain**|The domain name of the VM profile|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**domainid**|The domain ID of the VM profile|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**state**|The current state of the AutoScale VM Group|string|
+
+## updateAutoScaleVmProfile
+
+This command updates an existing autoscale VM profile.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command updates an existing autoscale VM profile:
+
+```shell
+$ cmk updateAutoScaleVmProfile
+```
+
+`updateAutoScaleVmProfile`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**templateid**|The template of the auto deployed virtual machine|uuid|255|false|
+|**autoscaleuserid**|The ID of the user used to launch and destroy the VMs|uuid|255|false|
+|**customid**|An optional field, in case you want to set a custom ID to the resource. Allowed to Root Admins only.|string|255|false|
+|**counterparam**|Counterparam list. Example: counterparam[0].name=snmpcommunity&counterparam[0].value=public&counterparam[1].name=snmpport&counterparam[1].value=161|map|255|false|
+|**fordisplay**|An optional field, whether to the display the profile to the end user or not|boolean|255|false|
+|**id**|The ID of the autoscale VM profile|uuid|255|true|
+|**destroyvmgraceperiod**|The time allowed for existing connections to get closed before a VM is destroyed|integer|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**projectid**|The project ID VM profile|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**project**|The project name of the VM profile|string|
+|**domainid**|The domain ID of the VM profile|string|
+|**id**|The autoscale VM profile ID|string|
+|**templateid**|The template to be used while deploying a virtual machine|string|
+|**account**|The account owning the instance group|string|
+|**domain**|The domain name of the VM profile|string|
+|**fordisplay**|Is profile for display to the regular user|boolean|
+|**destroyvmgraceperiod**|The time allowed for existing connections to get closed before a VM is destroyed|integer|
+|**autoscaleuserid**|The ID of the user used to launch and destroy the VMs|string|
+|**otherdeployparams**|Parameters other than zoneId/serviceOfferringId/templateId to be used while deploying a virtual machine|string|
+|**zoneid**|The availability zone to be used while deploying a virtual machine|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**serviceofferingid**|The service offering to be used while deploying a virtual machine|string|
 
 # Baremetal
 
@@ -1332,6 +1583,48 @@ $ cmk updatePortForwardingRule
 |**virtualmachinename**|The VM name for the port forwarding rule|string|
 |**cidrlist**|The CIDR list to forward traffic from|string|
 
+# Guest OS
+
+## listOsTypes
+
+This command lists all supported OS types for this cloud.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists all supported OS types for this cloud:
+
+```shell
+$ cmk listOsTypes
+```
+
+`listOsTypes`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|List by OS type ID|uuid|255|false|
+|**keyword**|List by keyword|string|255|false|
+|**oscategoryid**|List by OS Category ID|uuid|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**description**|List OS by description|string|255|false|
+|**page**|Page|integer|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**isuserdefined**|Is the guest OS user defined|boolean|
+|**oscategoryid**|The ID of the OS category|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**id**|The ID of the OS type|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**description**|The name/description of the OS type|string|
+
 # Hypervisor
 
 ## listHypervisors
@@ -1476,6 +1769,100 @@ $ cmk deleteIso
 |**displaytext**|Any text associated with the success or failure|string|
 |**jobid**|The UUID of the latest async job acting on this object|string|
 |**jobstatus**|The current status of the latest async job acting on this object|integer|
+
+## detachIso
+
+This command detaches any ISO file (if any) currently attached to a virtual machine.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command detaches any ISO file (if any) currently attached to a virtual machine:
+
+```shell
+$ cmk detachIso
+```
+
+`detachIso`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**virtualmachineid**|The ID of the virtual machine|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**rootdeviceid**|Device ID of the root volume|long|
+|**name**|The name of the virtual machine|string|
+|**passwordenabled**|True if the password rest feature is enabled, false otherwise|boolean|
+|**isoname**|The name of the ISO attached to the virtual machine|string|
+|**isodisplaytext**|An alternate display text of the ISO attached to the virtual machine|string|
+|**zonename**|The name of the availability zone for the virtual machine|string|
+|**memory**|The memory allocated for the virtual machine|integer|
+|**affinitygroup**|List of affinity groups associated with the virtual machine|set|
+|**memorykbs**|The memory used by the VM|long|
+|**hostid**|The ID of the host for the virtual machine|string|
+|**hypervisor**|The hypervisor on which the template runs|string|
+|**domain**|The name of the domain in which the virtual machine exists|string|
+|**hostname**|The name of the host for the virtual machine|string|
+|**diskofferingname**|The name of the disk offering of the virtual machine|string|
+|**memoryintfreekbs**|The internal memory thats free in VM|long|
+|**instancename**|Instance name of the user VM; this parameter is returned to the ROOT admin only|string|
+|**securitygroup**|List of security groups associated with the virtual machine|set|
+|**cpuspeed**|The speed of each CPU|integer|
+|**zoneid**|The ID of the availability zone for the virtual machine|string|
+|**guestosid**|OS type ID of the virtual machine|string|
+|**account**|The account associated with the virtual machine|string|
+|**serviceofferingname**|The name of the service offering of the virtual machine|string|
+|**publicip**|Public IP address ID associated with VM via Static nat rule|string|
+|**keypair**|SSH key-pair|string|
+|**id**|The ID of the virtual machine|string|
+|**rootdevicetype**|Device type of the root volume|string|
+|**username**|The user's name who deployed the virtual machine|string|
+|**haenable**|True if high-availability is enabled, false otherwise|boolean|
+|**password**|The password (if exists) of the virtual machine|string|
+|**isdynamicallyscalable**|True if VM contains XS/VMWare tools in order to support dynamic scaling of VM CPU/memory|boolean|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**publicipid**|Public IP address ID associated with VM via Static nat rule|string|
+|**serviceofferingid**|The ID of the service offering of the virtual machine|string|
+|**ostypeid**|OS type ID of the VM|string|
+|**details**|VM details in key/value pairs|map|
+|**networkkbsread**|The incoming network traffic on the VM|long|
+|**diskiowrite**|The write (io) of disk on the VM|long|
+|**diskkbsread**|The read (bytes) of disk on the VM|long|
+|**templateid**|The ID of the template for the virtual machine. A -1 is returned if the virtual machine was created from an ISO file.|string|
+|**diskkbswrite**|The write (bytes) of disk on the VM|long|
+|**servicestate**|State of the Service from LB rule|string|
+|**displayvm**|An optional field whether to the display the VM to the end user or not|boolean|
+|**nic**|The list of nics associated with VM|set|
+|**projectid**|The project ID of the VM|string|
+|**tags**|The list of resource tags associated|set|
+|**diskioread**|The read (io) of disk on the VM|long|
+|**created**|The date when this virtual machine was created|date|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**project**|The project name of the VM|string|
+|**userid**|The user's ID who deployed the virtual machine|string|
+|**templatedisplaytext**| an alternate display text of the template for the virtual machine|string|
+|**memorytargetkbs**|The target memory in VM|long|
+|**cpunumber**|The number of CPU this virtual machine is running with|integer|
+|**state**|The state of the virtual machine|string|
+|**vgpu**|The VGPU type used by the virtual machine|string|
+|**domainid**|The ID of the domain in which the virtual machine exists|string|
+|**networkkbswrite**|The outgoing network traffic on the host|long|
+|**displayname**|User generated name. The name of the virtual machine is returned if no display name exists.|string|
+|**templatename**|The name of the template for the virtual machine|string|
+|**group**|The group name of the virtual machine|string|
+|**isoid**|The ID of the ISO attached to the virtual machine|string|
+|**groupid**|The group ID of the virtual machine|string|
+|**forvirtualnetwork**|The virtual network for the service offering|boolean|
+|**cpuused**|The amount of the VM's CPU currently used|string|
+|**diskofferingid**|The ID of the disk offering of the virtual machine|string|
 
 ## extractIso
 
@@ -1721,6 +2108,59 @@ $ cmk assignToLoadBalancerRule
 |**displaytext**|Any text associated with the success or failure|string|
 |**jobid**|The UUID of the latest async job acting on this object|string|
 
+## createGlobalLoadBalancerRule
+
+This command creates a global load balancer rule.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command creates a global load balancer rule:
+
+```shell
+$ cmk createGlobalLoadBalancerRule
+```
+
+`createGlobalLoadBalancerRule`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**domainid**|The domain ID associated with the load balancer|uuid|255|false|
+|**gslbstickysessionmethodname**|Session sticky method (sourceip) if not specified defaults to sourceip|string|255|false|
+|**description**|The description of the load balancer rule|string|4096|false|
+|**regionid**|Region where the global load balancer is going to be created|integer|255|true|
+|**gslbdomainname**|Domain name for the GSLB service|string|255|true|
+|**gslblbmethod**|Load balancer algorithm (roundrobin, leastconn, proximity) that method is used to distribute traffic across the zones participating in global server load balancing, if not specified defaults to 'round robin'|string|255|false|
+|**name**|Name of the load balancer rule|string|255|true|
+|**account**|The account associated with the global load balancer. Must be used with the domain ID parameter.|string|255|false|
+|**gslbservicetype**|GSLB service type (tcp, udp, http)|string|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**gslbservicetype**|GSLB service type|string|
+|**gslbstickysessionmethodname**|Session persistence method used for the global load balancer|string|
+|**name**|Name of the global load balancer rule|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**projectid**|The project ID of the load balancer|string|
+|**gslblbmethod**|Load balancing method used for the global load balancer|string|
+|**gslbdomainname**|DNS domain name given for the global load balancer|string|
+|**id**|Global load balancer rule ID|string|
+|**regionid**|Region Id in which global load balancer is created|integer|
+|**account**|The account of the load balancer rule|string|
+|**domain**|The domain of the load balancer rule|string|
+|**loadbalancerrule**|List of load balancer rules that are part of GSLB rule|list|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**project**|The project name of the load balancer|string|
+|**domainid**|The domain ID of the load balancer rule|string|
+|**description**|The description of the global load balancer rule|string|
+
 ## createLoadBalancerRule
 
 This command creates a load balancer rule.
@@ -1818,6 +2258,61 @@ $ cmk deleteLoadBalancerRule
 |**success**|True if operation is executed successfully|boolean|
 |**jobid**|The UUID of the latest async job acting on this object|string|
 |**jobstatus**|The current status of the latest async job acting on this object|integer|
+
+## listGlobalLoadBalancerRules
+
+This command lists load balancer rules.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists load balancer rules:
+
+```shell
+$ cmk listGlobalLoadBalancerRules
+```
+
+`listGlobalLoadBalancerRules`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**page**|Page|integer|255|false|
+|**keyword**|List by keyword|string|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**domainid**|List only resources belonging to the domain specified|uuid|255|false|
+|**projectid**|List objects by project|uuid|255|false|
+|**account**|List resources by account. Must be used with the domain ID parameter.|string|255|false|
+|**id**|The ID of the global load balancer rule|uuid|255|false|
+|**tags**|List resources by tags (key/value pairs)|map|255|false|
+|**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domain ID till leaves|boolean|255|false|
+|**regionid**|Region ID|integer|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false.|boolean|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**gslblbmethod**|Load balancing method used for the global load balancer|string|
+|**gslbdomainname**|DNS domain name given for the global load balancer|string|
+|**projectid**|The project ID of the load balancer|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**loadbalancerrule**|List of load balancer rules that are part of GSLB rule|list|
+|**account**|The account of the load balancer rule|string|
+|**gslbservicetype**|GSLB service type|string|
+|**regionid**|Region ID in which global load balancer is created|integer|
+|**id**|Global load balancer rule ID|string|
+|**name**|Name of the global load balancer rule|string|
+|**gslbstickysessionmethodname**|Session persistence method used for the global load balancer|string|
+|**domainid**|The domain ID of the load balancer rule|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**description**|The description of the global load balancer rule|string|
+|**domain**|The domain of the load balancer rule|string|
+|**project**|The project name of the load balancer|string|
 
 ## listLoadBalancerRuleInstances
 
@@ -2326,6 +2821,62 @@ $ cmk listIpForwardingRules
 |**fordisplay**|Is firewall for display to the regular user|boolean|
 
 # Network
+
+## createNetworkACL
+
+This command creates an ACL rule in the given network (the network has to belong to VPC).
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command creates an ACL rule in the given network:
+
+```shell
+$ cmk createNetworkACL
+```
+
+`createNetworkACL`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**number**|The network of the VM the ACL will be created for|integer|255|false|
+|**fordisplay**|An optional field, whether to the display the rule to the end user or not|boolean|255|false|
+|**protocol**|The protocol for the ACL rule. Valid values are TCP/UDP/ICMP/ALL or valid protocol number.|string|255|true|
+|**cidrlist**|The CIDR list to allow traffic from/to|list|255|false|
+|**aclid**|The network of the VM the ACL will be created for|uuid|255|false|
+|**icmptype**|Type of the ICMP message being sent|integer|255|false|
+|**networkid**|The network of the VM the ACL will be created for|uuid|255|false|
+|**endport**|The ending port of ACL|integer|255|false|
+|**traffictype**|The traffic type for the ACL, can be ingress or egress, defaulted to ingress if not specified|string|255|false|
+|**icmpcode**|Error code for this ICMP message|integer|255|false|
+|**startport**|The starting port of ACL|integer|255|false|
+|**action**|SCL entry action, allow or deny|string|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**icmpcode**|Error code for this ICMP message|integer|
+|**cidrlist**|The CIDR list to forward traffic from|string|
+|**startport**|The starting port of ACL's port range|string|
+|**number**|Number of the ACL Item|integer|
+|**aclid**|The ID of the ACL this item belongs to|string|
+|**tags**|The list of resource tags associated with the network ACLs|list|
+|**traffictype**|The traffic type for the ACL|string|
+|**protocol**|The protocol of the ACL|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**state**|The state of the rule|string|
+|**action**|Action of ACL Item. Allow/Deny.|string|
+|**endport**|The ending port of ACL's port range|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**icmptype**|Type of the ICMP message being sent|integer|
+|**id**|The ID of the ACL Item|string|
+|**fordisplay**|Is rule for display to the regular user|boolean|
 
 ## listNetworkACLLists
 
@@ -3180,6 +3731,59 @@ $ cmk deleteTags
 |**resourcetype**|Delete tag by resource type|string|255|true|
 |**resourceids**|Delete tags for resource ID(s)|list|255|true|
 
+## listTags
+
+This command lists resource tag(s).
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists resource tag(s):
+
+```shell
+$ cmk listTags
+```
+
+`listTags`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**key**|List by key|string|255|false|
+|**customer**|List by customer name|string|255|false|
+|**value**|List by value|string|255|false|
+|**keyword**|List by keyword|string|255|false|
+|**page**|Page|integer|255|false|
+|**resourcetype**|List by resource type|string|255|false|
+|**account**|List resources by account. Must be used with the domain ID parameter.|string|255|false|
+|**domainid**|List only resources belonging to the domain specified|uuid|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false.|boolean|255|false|
+|**resourceid**|List by resource ID|string|255|false|
+|**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domain ID till leaves|boolean|255|false|
+|**projectid**|List objects by project|uuid|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**customer**|Customer associated with the tag|string|
+|**value**|Tag value|string|
+|**domain**|The domain associated with the tag|string|
+|**resourcetype**|Resource type|string|
+|**resourceid**|ID of the resource|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**domainid**|The ID of the domain associated with the tag|string|
+|**projectid**|The project id the tag belongs to|string|
+|**project**|The project name where tag belongs to|string|
+|**key**|Tag key name|string|
+|**account**|The account associated with the tag|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+
 ### Response schema
 
 |Element|Description|Type|
@@ -3392,6 +3996,39 @@ undefined
 |**jobid**|The UUID of the latest async job acting on this object|string|
 |**virtualmachinecount**|The number of virtualmachines associated with this securitygroup|integer|
 
+## revokeSecurityGroupEgress
+
+This command deletes a particular egress rule from this security group.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command deletes a particular egress rule from this security group:
+
+```shell
+$ cmk revokeSecurityGroupEgress
+```
+
+`revokeSecurityGroupEgress`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the egress rule|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**success**|True if operation is executed successfully|boolean|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+
 ## revokeSecurityGroupIngress
 
 This command deletes a particular ingress rule from this security group.
@@ -3529,6 +4166,39 @@ $ cmk createSnapshotPolicy
 |**schedule**|Time the snapshot is scheduled to be taken|string|
 |**jobstatus**|The current status of the latest async job acting on this object|integer|
 |**jobid**|The UUID of the latest async job acting on this object|string|
+
+## deleteSnapshot
+
+This command deletes a snapshot of a disk volume.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command deletes a snapshot of a disk volume:
+
+```shell
+$ cmk deleteSnapshot
+```
+
+`deleteSnapshot`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|The ID of the snapshot|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**success**|True if operation is executed successfully|boolean|
 
 ## deleteVMSnapshot
 
@@ -4487,7 +5157,6 @@ $ cmk changeServiceForVirtualMachine
 |**tags**|The list of resource tags associated|set|
 |**diskofferingid**|The ID of the disk offering of the virtual machine|string|
 |**memorytargetkbs**|The target memory in VM|long|
-undefined
 |**servicestate**|State of the Service from LB rule|string|
 |**domainid**|The ID of the domain in which the virtual machine exists|string|
 |**password**|The password (if exists) of the virtual machine|string|
@@ -4503,6 +5172,129 @@ undefined
 |**name**|The name of the virtual machine|string|
 |**isoid**|The ID of the ISO attached to the virtual machine|string|
 |**memoryintfreekbs**|The internal memory thats free in VM|long|
+
+## listVirtualMachines
+
+This command lists the virtual machines owned by the account.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists the virtual machines owned by the account:
+
+```shell
+$ cmk listVirtualMachines
+```
+
+`listVirtualMachines`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**podid**|The pod ID|uuid|255|false|
+|**name**|Name of the virtual machine (a substring match is made against the parameter value, data for all matching VMs will be returned)|string|255|false|
+|**hostid**|The host ID|uuid|255|false|
+|**keypair**|List VMs by SSH keypair name|string|255|false|
+|**templateid**|List VMs by template|uuid|255|false|
+|**storageid**|The storage ID where VM's volumes belong to|uuid|255|false|
+|**tags**|List resources by tags (key/value pairs)|map|255|false|
+|**isoid**|List VMs by ISO|uuid|255|false|
+|**zoneid**|The availability zone ID|uuid|255|false|
+|**keyword**|List by keyword|string|255|false|
+|**account**|List resources by account. Must be used with the domain ID parameter.|string|255|false|
+|**ids**|The IDs of the virtual machines, mutually exclusive with ID|list|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**displayvm**|List resources by display flag; only ROOT admin is eligible to pass this parameter|boolean|255|false|
+|**state**|State of the virtual machine. Possible values are: Running, Stopped, Present, Destroyed, Expunged. Present is used for the state equal not destroyed.|string|255|false|
+|**details**|Comma separated list of host details requested, value can be a list of [all, group, nics, stats, secgrp, tmpl, servoff, diskoff, iso, volume, min, affgrp]. If no parameter is passed in, the details will be defaulted to all.|list|255|false|
+|**projectid**|List objects by project|uuid|255|false|
+|**affinitygroupid**|List VMs by affinity group|uuid|255|false|
+|**networkid**|List by network ID|uuid|255|false|
+|**forvirtualnetwork**|List by network type; true if need to list VMs using Virtual Network, false otherwise|boolean|255|false|
+|**serviceofferingid**|List by the service offering|uuid|255|false|
+|**groupid**|The group ID|uuid|255|false|
+|**userid**|The user ID that created the VM and is under the account that owns the VM|uuid|255|false|
+|**page**|Page|integer|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false.|boolean|255|false|
+|**domainid**|List only resources belonging to the domain specified|uuid|255|false|
+|**id**|The ID of the virtual machine|uuid|255|false|
+|**hypervisor**|The target hypervisor for the template|string|255|false|
+|**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domain ID till leaves|boolean|255|false|
+|**vpcid**|List VMs by VPC|uuid|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**domain**|The name of the domain in which the virtual machine exists|string|
+|**diskkbswrite**|The write (bytes) of disk on the VM|long|
+|**rootdevicetype**|Device type of the root volume|string|
+|**memorykbs**|The memory used by the VM|long|
+|**publicipid**|Public IP address id associated with VM via Static nat rule|string|
+|**haenable**|True if high-availability is enabled, false otherwise|boolean|
+|**created**|The date when this virtual machine was created|date|
+|**state**|The state of the virtual machine|string|
+|**displayname**|User generated name. The name of the virtual machine is returned if no display name exists.|string|
+|**hypervisor**|The hypervisor on which the template runs|string|
+|**password**|The password (if exists) of the virtual machine|string|
+|**templateid**|The ID of the template for the virtual machine. A -1 is returned if the virtual machine was created from an ISO file.|string|
+|**forvirtualnetwork**|The virtual network for the service offering|boolean|
+|**hostname**|The name of the host for the virtual machine|string|
+|**affinitygroup**|List of affinity groups associated with the virtual machine|set|
+|**project**|The project name of the VM|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**isoid**|The ID of the ISO attached to the virtual machine|string|
+|**networkkbsread**|The incoming network traffic on the VM|long|
+|**serviceofferingid**|The ID of the service offering of the virtual machine|string|
+|**publicip**|Public IP address ID associated with VM via Static nat rule|string|
+|**keypair**|SSH key-pair|string|
+|**passwordenabled**|True if the password rest feature is enabled, false otherwise|boolean|
+|**servicestate**|State of the Service from LB rule|string|
+|**templatedisplaytext**|An alternate display text of the template for the virtual machine|string|
+|**account**|The account associated with the virtual machine|string|
+|**isdynamicallyscalable**|True if VM contains XS/VMWare tools in order to support dynamic scaling of VM CPU/memory|boolean|
+|**hostid**|The ID of the host for the virtual machine|string|
+|**diskiowrite**|The write (io) of disk on the VM|long|
+|**id**|The ID of the virtual machine|string|
+|**rootdeviceid**|Device ID of the root volume|long|
+|**zonename**|The name of the availability zone for the virtual machine|string|
+|**isodisplaytext**|An alternate display text of the ISO attached to the virtual machine|string|
+|**memoryintfreekbs**|The internal memory thats free in VM|long|
+|**displayvm**|An optional field whether to the display the VM to the end user or not|boolean|
+|**nic**|The list of nics associated with VM|set|
+|**diskkbsread**|The read (bytes) of disk on the VM|long|
+|**domainid**|The ID of the domain in which the virtual machine exists|string|
+|**networkkbswrite**|The outgoing network traffic on the host|long|
+|**cpuspeed**|The speed of each CPU|integer|
+|**group**|The group name of the virtual machine|string|
+|**ostypeid**|OS type ID of the VM|string|
+|**memorytargetkbs**|The target memory in VM|long|
+|**zoneid**|The ID of the availability zone for the virtual machine|string|
+|**memory**|The memory allocated for the virtual machine|integer|
+|**instancename**|Instance name of the user VM; this parameter is returned to the ROOT admin only|string|
+|**details**|VM details in key/value pairs|map|
+|**securitygroup**|List of security groups associated with the virtual machine|set|
+|**diskofferingname**|The name of the disk offering of the virtual machine|string|
+|**diskofferingid**|The ID of the disk offering of the virtual machine|string|
+|**isoname**|The name of the ISO attached to the virtual machine|string|
+|**groupid**|The group ID of the virtual machine|string|
+|**username**|The user's name who deployed the virtual machine|string|
+|**cpunumber**|The number of CPU this virtual machine is running with|integer|
+|**name**|The name of the virtual machine|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**templatename**|The name of the template for the virtual machine|string|
+|**serviceofferingname**|The name of the service offering of the virtual machine|string|
+|**userid**|The user's ID who deployed the virtual machine|string|
+|**tags**|The list of resource tags associated|set|
+|**vgpu**|The VGPU type used by the virtual machine|string|
+|**diskioread**|The read (io) of disk on the VM|long|
+|**guestosid**|OS type ID of the virtual machine|string|
+|**cpuused**|The amount of the VM's CPU currently used|string|
+|**projectid**|The project ID of the VM|string|
 
 ## listVirtualMachinesMetrics
 
@@ -4825,6 +5617,104 @@ $ cmk resetPasswordForVirtualMachine
 |**diskiowrite**|The write (io) of disk on the VM|long|
 |**cpuspeed**|The speed of each CPU|integer|
 |**vgpu**|The VGPU type used by the virtual machine|string|
+
+## resetSSHKeyForVirtualMachine
+
+This command resets the SSH Key for virtual machine.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command resets the SSH Key for virtual machine:
+
+```shell
+$ cmk resetSSHKeyForVirtualMachine
+```
+
+`resetSSHKeyForVirtualMachine`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**account**|An optional account for the ssh key. Must be used with domain ID.|string|255|false|
+|**domainid**|An optional domain ID for the virtual machine. If the account parameter is used, domain ID must also be used.|uuid|255|false|
+|**projectid**|An optional project for the SSH key|uuid|255|false|
+|**keypair**|Name of the SSH key pair used to login to the virtual machine|string|255|true|
+|**id**|The ID of the virtual machine|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**templateid**|The ID of the template for the virtual machine. A -1 is returned if the virtual machine was created from an ISO file.|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**rootdeviceid**|Device ID of the root volume|long|
+|**haenable**|True if high-availability is enabled, false otherwise|boolean|
+|**memory**|The memory allocated for the virtual machine|integer|
+|**nic**|The list of nics associated with VM|set|
+|**username**|The user's name who deployed the virtual machine|string|
+|**userid**|The user's ID who deployed the virtual machine|string|
+|**password**|The password (if exists) of the virtual machine|string|
+|**cpuused**|The amount of the VM's CPU currently used|string|
+|**displayvm**|An optional field whether to the display the VM to the end user or not|boolean|
+|**rootdevicetype**|Device type of the root volume|string|
+|**guestosid**|OS type ID of the virtual machine|string|
+|**domain**|The name of the domain in which the virtual machine exists|string|
+|**isodisplaytext**|An alternate display text of the ISO attached to the virtual machine|string|
+|**diskiowrite**|The write (io) of disk on the VM|long|
+|**diskkbsread**|The read (bytes) of disk on the VM|long|
+|**details**|VM details in key/value pairs|map|
+|**keypair**|SSH key-pair|string|
+|**networkkbswrite**|The outgoing network traffic on the host|long|
+|**ostypeid**|OS type ID of the VM|string|
+|**hostid**|The ID of the host for the virtual machine|string|
+|**state**|The state of the virtual machine|string|
+|**tags**|The list of resource tags associated|set|
+|**securitygroup**|List of security groups associated with the virtual machine|set|
+|**forvirtualnetwork**|The virtual network for the service offering|boolean|
+|**isoid**|The ID of the ISO attached to the virtual machine|string|
+|**vgpu**|The VGPU type used by the virtual machine|string|
+|**instancename**|Instance name of the user VM; this parameter is returned to the ROOT admin only|string|
+|**cpunumber**|The number of CPU this virtual machine is running with|integer|
+|**groupid**|The group ID of the virtual machine|string|
+|**hypervisor**|The hypervisor on which the template runs|string|
+|**created**|The date when this virtual machine was created|date|
+|**cpuspeed**|The speed of each CPU|integer|
+|**project**|The project name of the VM|string|
+|**diskofferingid**|The ID of the disk offering of the virtual machine|string|
+|**diskofferingname**|The name of the disk offering of the virtual machine|string|
+|**affinitygroup**|List of affinity groups associated with the virtual machine|set|
+|**publicipid**|Public IP address ID associated with vm via Static nat rule|string|
+|**isdynamicallyscalable**|True if VM contains XS/VMWare tools in order to support dynamic scaling of VM CPU/memory|boolean|
+|**group**|The group name of the virtual machine|string|
+|**zoneid**|The ID of the availability zone for the virtual machine|string|
+|**displayname**|User generated name. The name of the virtual machine is returned if no display name exists.|string|
+|**memorykbs**|The memory used by the VM|long|
+|**account**|The account associated with the virtual machine|string|
+|**serviceofferingid**|The ID of the service offering of the virtual machine|string|
+|**hostname**|The name of the host for the virtual machine|string|
+|**diskioread**|The read (io) of disk on the VM|long|
+|**zonename**|The name of the availability zone for the virtual machine|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**networkkbsread**|The incoming network traffic on the VM|long|
+|**serviceofferingname**|The name of the service offering of the virtual machine|string|
+|**memorytargetkbs**|The target memory in VM|long|
+|**publicip**|Public IP address ID associated with VM via Static nat rule|string|
+|**passwordenabled**|True if the password rest feature is enabled, false otherwise|boolean|
+|**id**|The ID of the virtual machine|string|
+|**templatedisplaytext**|An alternate display text of the template for the virtual machine|string|
+|**diskkbswrite**|The write (bytes) of disk on the VM|long|
+|**domainid**|The ID of the domain in which the virtual machine exists|string|
+|**name**|The name of the virtual machine|string|
+|**isoname**|The name of the ISO attached to the virtual machine|string|
+|**memoryintfreekbs**|The internal memory thats free in VM|long|
+|**servicestate**|State of the Service from LB rule|string|
+|**templatename**|The name of the template for the virtual machine|string|
+|**projectid**|The project ID of the VM|string|
 
 ## restoreVirtualMachine
 
@@ -5406,6 +6296,50 @@ $ cmk getSolidFireVolumeSize
 |**jobid**|The UUID of the latest async job acting on this object|string|
 |**solidFireVolumeSize**|SolidFire Volume Size Including Hypervisor Snapshot Reserve|long|
 
+## getUploadParamsForVolume
+
+This command uploads a data disk to the CloudStack cloud.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command uploads a data disk to the CloudStack cloud:
+
+```shell
+$ cmk getUploadParamsForVolume
+```
+
+`getUploadParamsForVolume`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**domainid**|An optional domain ID. If the account parameter is used, domain ID must also be used.|uuid|255|false|
+|**zoneid**|The ID of the zone the volume/template is to be hosted on|uuid|255|true|
+|**diskofferingid**|The ID of the disk offering. This must be a custom sized offering since during upload of volume/template size is unknown.|uuid|255|false|
+|**name**|The name of the volume/template|string|255|true|
+|**projectid**|Upload volume/template for the project|uuid|255|false|
+|**format**|The format for the volume/template. Possible values include QCOW2, OVA, and VHD.|string|255|true|
+|**imagestoreuuid**|Image store uuid|string|255|false|
+|**account**|An optional accountName. Must be used with domain ID.|string|255|false|
+|**checksum**|The checksum value of this volume/template The parameter containing the checksum will be considered a MD5sum if it is not prefixed and just a plain ascii/utf8 representation of a hexadecimal string. If it is required to use another algorithm the hexadecimal string is to be prefixed with a string of the form, "{<algorithm>}", not including the double quotes. In this <algorithm> is the exact string representing the java supported algorithm, i.e. MD5 or SHA-256. Note that java does not contain an algorithm called SHA256 or one called sha-256, only SHA-256.|string|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**signature**|Signature to be sent in the POST request|string|
+|**expires**|The timestamp after which the signature expires|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**postURL**|POST URL to upload the file to|url|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**metadata**|Encrypted data to be sent in the POST request|string|
+|**id**|The template/volume ID|uuid|
+
 ## resizeVolume
 
 This command resizes a volume.
@@ -5642,6 +6576,70 @@ $ cmk createStaticRoute
 |**projectid**|The project ID of the static route|string|
 |**state**|The state of the static route|string|
 |**vpcid**|VPC the static route belongs to|string|
+
+## createVPC
+
+This command creates a VPC.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command creates a VPC:
+
+```shell
+$ cmk createVPC
+```
+
+`createVPC`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**start**|If set to false, the VPC won't start (VPC VR will not get allocated) until its first network gets implemented. True by default.|boolean|255|false|
+|**vpcofferingid**|The ID of the VPC offering|uuid|255|true|
+|**domainid**|The domain ID associated with the VPC. If used with the account parameter returns the VPC associated with the account for the specified domain.|uuid|255|false|
+|**projectid**|Create VPC for the project|uuid|255|false|
+|**displaytext**|The display text of the VPC|string|255|true|
+|**networkdomain**|VPC network domain. All networks inside the VPC will belong to this domain|string|255|false|
+|**cidr**|The CIDR of the VPC. All VPC guest networks' CIDRs should be within this CIDR|string|255|true|
+|**zoneid**|The ID of the availability zone|uuid|255|true|
+|**fordisplay**|An optional field, whether to the display the VPC to the end user or not|boolean|255|false|
+|**account**|The account associated with the VPC. Must be used with the domainId parameter.|string|255|false|
+|**name**|The name of the VPC|string|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**networkdomain**|The network domain of the VPC|string|
+|**displaytext**|An alternate display text of the VPC|string|
+|**network**|The list of networks belonging to the VPC|list|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**project**|The project name of the VPC|string|
+|**tags**|The list of resource tags associated with the project|list|
+|**vpcofferingid**|VPC offering ID the VPC is created from|string|
+|**projectid**|The project ID of the VPC|string|
+|**cidr**|The CIDR the VPC|string|
+|**state**|State of the VPC. Can be Inactive/Enabled.|string|
+|**id**|The ID of the VPC|string|
+|**regionlevelvpc**|True if VPC is region level|boolean|
+|**domainid**|The domain ID of the VPC owner|string|
+|**zoneid**|Zone ID of the VPC|string|
+|**redundantvpcrouter**|If this VPC has redundant router|boolean|
+|**zonename**|The name of the zone the VPC belongs to|string|
+|**domain**|The domain name of the owner|string|
+|**created**|The date this VPC was created|date|
+|**distributedvpcrouter**|Is VPC uses distributed router for one hop forwarding and host based network ACL's|boolean|
+|**restartrequired**|True VPC requires restart|boolean|
+|**name**|The name of the VPC|string|
+|**service**|The list of supported services|list|
+|**fordisplay**|Is VPC for display to the regular user|boolean|
+|**account**|The owner of the VPC|string|
 
 ## deleteStaticRoute
 
@@ -6011,6 +7009,39 @@ $ cmk deleteRemoteAccessVpn
 |**displaytext**|Any text associated with the success or failure|string|
 |**jobid**|The UUID of the latest async job acting on this object|string|
 
+## deleteVpnConnection
+
+This command delete site to site VPN connection.
+
+<aside class='notice'>
+Asynchronous
+</aside>
+
+### Command
+
+> The following command delete site to site VPN connection:
+
+```shell
+$ cmk deleteVpnConnection
+```
+
+`deleteVpnConnection`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**id**|ID of VPN connection|uuid|255|true|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**displaytext**|Any text associated with the success or failure|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**success**|True if operation is executed successfully|boolean|
+
 ## deleteVpnCustomerGateway
 
 This command deletes site to site VPN customer gateway.
@@ -6076,6 +7107,63 @@ $ cmk deleteVpnGateway
 |**jobstatus**|The current status of the latest async job acting on this object|integer|
 |**success**|True if operation is executed successfully|boolean|
 |**jobid**|The UUID of the latest async job acting on this object|string|
+
+## listVpnCustomerGateways
+
+This command lists site to site VPN customer gateways.
+
+<aside class='notice'>
+Not asynchronous
+</aside>
+
+### Command
+
+> The following command lists site to site VPN customer gateways:
+
+```shell
+$ cmk listVpnCustomerGateways
+```
+
+`listVpnCustomerGateways`
+
+### Query parameters
+
+|Parameter Name|Description|Type|Length|Required|
+|--------------|-----------|----|------|--------|
+|**domainid**|List only resources belonging to the domain specified|uuid|255|false|
+|**pagesize**|Page size|integer|255|false|
+|**id**|ID of the customer gateway|uuid|255|false|
+|**account**|List resources by account. Must be used with the domain ID parameter.|string|255|false|
+|**projectid**|List objects by project|uuid|255|false|
+|**isrecursive**|Defaults to false, but if true, lists all resources from the parent specified by the domainId till leaves|boolean|255|false|
+|**keyword**|List by keyword|string|255|false|
+|**page**|Page|integer|255|false|
+|**listall**|If set to false, list only resources belonging to the command's caller; if set to true - list resources that the caller is authorized to see. Default value is false.|boolean|255|false|
+
+### Response schema
+
+|Element|Description|Type|
+|-------|-----------|----|
+|**ikelifetime**|Lifetime of IKE SA of customer gateway|long|
+|**forceencap**|If Force NAT Encapsulation is enabled for customer gateway|boolean|
+|**project**|The project name|string|
+|**id**|The VPN gateway ID|string|
+|**gateway**|Public IP address ID of the customer gateway|string|
+|**jobstatus**|The current status of the latest async job acting on this object|integer|
+|**removed**|The date and time the host was removed|date|
+|**domainid**|The domain ID of the owner|string|
+|**domain**|The domain name of the owner|string|
+|**jobid**|The UUID of the latest async job acting on this object|string|
+|**ikepolicy**|IKE policy of customer gateway|string|
+|**account**|The owner|string|
+|**dpd**|If DPD is enabled for customer gateway|boolean|
+|**esppolicy**|IPsec policy of customer gateway|string|
+|**cidrlist**|Guest CIDR list of the customer gateway|string|
+|**ipsecpsk**|IPsec preshared-key of customer gateway|string|
+|**ipaddress**|Guest IP of the customer gateway|string|
+|**projectid**|The project ID|string|
+|**name**|Name of the customer gateway|string|
+|**esplifetime**|Lifetime of ESP SA of customer gateway|long|
 
 ## resetVpnConnection
 
